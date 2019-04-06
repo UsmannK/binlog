@@ -6,7 +6,7 @@
     <link>https://binlog.usmannkhan.com/</link>
     <atom:link href="https://binlog.usmannkhan.com/feed.xml" rel="self" type="application/rss+xml"/>
     <pubDate>2019-04-05</pubDate>
-    <lastBuildDate>Fri, 05 Apr 2019 23:08:12 -0700</lastBuildDate>
+    <lastBuildDate>Fri, 05 Apr 2019 23:12:32 -0700</lastBuildDate>
     <generator>Jekyll v3.7.4</generator>
 
       <item>
@@ -31,7 +31,7 @@ To-do - Fix stability issues - Bug fixes - Implement feature to view by day
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;adb install YayorNay.apk
 Success&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;The app opens up with some instructions ond how to use it and a button to get started.&lt;/p&gt;
+&lt;p&gt;The app opens up with some instructions on how to use it and a button to get started.&lt;/p&gt;
 
 &lt;figure&gt;
 &lt;img src=&quot;/img/yayornay-main.png&quot; alt=&quot;YayOrNay MainActivity screenshot&quot; /&gt;
