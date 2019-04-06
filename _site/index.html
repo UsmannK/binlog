@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="A simple and awesome blog theme powered by jekyll.">
+  <meta name="keywords" content="blog and jekyll">
+  <meta name="author" content="binlog">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f5f5">
+
+  <!-- Twitter Tags -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="binlog">
+  <meta name="twitter:description" content="A simple and awesome blog theme powered by jekyll.">
+
+    <meta property="twitter:image" content="/img/leonids-logo.png">
+
+
+  <!-- Open Graph Tags -->
+  <meta property="og:type" content="blog">
+  <meta property="og:url" content="/">
+  <meta property="og:title" content="binlog">
+  <meta property="og:description" content="A simple and awesome blog theme powered by jekyll.">
+
+    <meta property="og:image" content="/img/leonids-logo.png">
+
+  <title>binlog</title>
+
+  <!-- CSS files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="/">
+  <link rel="alternate" type="application/rss+xml" title="binlog" href="/feed.xml" />
+
+  <!-- Icons -->
+  <!-- 16x16 -->
+  <!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+  <!-- 32x32 -->
+  <link rel="shortcut icon" href="/fav-2.png">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+</head>
+
+
+<body>
+  <div class="row">
+    <div class="col s12">
+      <div class="table cover sidebar">
+
+
+<div class="cover-card table-cell table-middle">
+
+  <a href="/">
+    <img src="/img/awoo.png" alt="" class="avatar">
+  </a>
+
+  <a href="/" class="author_name">Usmann Khan</a>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="/">home</a>
+      </li>
+
+      <li class="nav-item">
+        <a href="/about/">About</a>
+      </li>
+
+      <li class="nav-item">
+        <a href="/archive/">Archive</a>
+      </li>
+
+      <li class="nav-item">
+        <a href="/categories/">Categories</a>
+      </li>
+
+    </ul>
+  </nav>
+  <script type="text/javascript">
+  // based on http://stackoverflow.com/a/10300743/280842
+  function gen_mail_to_link(hs, subject) {
+    var lhs,rhs;
+    var p = hs.split('@');
+    lhs = p[0];
+    rhs = p[1];
+    document.write("<a class=\"social-link-item\" target=\"_blank\" href=\"mailto");
+    document.write(":" + lhs + "@");
+    document.write(rhs + "?subject=" + subject + "\"><i class=\"fa fa-fw fa-envelope\"></i><\/a>");
+  }
+</script>
+<div class="social-links">
+  <ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </ul>
+</div>
+
+</div>
+
+      </div>
+      <div class="post-listing">
+      <div class="post-container">
+
+<section class="post">
+  <header class="post-header">
+    <p class="post-meta">
+      <span class="post-date">
+        18 MAR 2019
+      </span>
+
+      •
+
+        <a class="post-cat" href="/categories/#Android">Android</a>
+
+        <span>/</span>
+
+
+        <a class="post-cat" href="/categories/#reverse engineering">reverse engineering</a>
+
+        <span>/</span>
+
+
+        <a class="post-cat" href="/categories/#CTF">CTF</a>
+
+
+
+    </p>
+    <h2>
+      <a href="/articles/2019-03/bsides-yayornay" class="post-title" title="BSidesSF CTF Yay Or Nay Writeup">BSidesSF CTF Yay Or Nay Writeup</a>
+
+    </h2>
+
+
+
+    </header>
+
+
+    <div class="post-description">
+      <p>
+        <p>This is the second in a series of writeups on challenges from the <a href="https://bsidessf.net">BSidesSF CTF</a>. You can see a writeup of the first challenge, Blink, <a href="/articles/2019-03/bsides-blink">here</a></p>
+
+<p><code class="highlighter-rouge">Yay Or Nay</code> was the second mobile challenge in the CTF, this time worth 200 points. Like last time, we start out with a prompt and an apk file. This time the prompt came in a little more handy.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Keep track of places you would love / hate to see, by dropping markers with a simple click. Try YayorNay v1.2 today!
+
+:::: Updated README :::: v 1.0 - Added short press, Yay support - Fix stability issues
+
+v 1.1 - Added long press, Nay support - Add labels
+
+v 1.2 - Populate from DB - Save to DB
+
+To-do - Fix stability issues - Bug fixes - Implement feature to view by day
+</code></pre></div></div>
+
+<p>First things first, let’s launch the app.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb install YayorNay.apk
+Success</code></pre></figure>
+
+<p>The app opens up with some instructions ond how to use it an a button to get started.</p>
+
+<figure>
+<img src="/img/yayornay-main.png" alt="YayOrNay MainActivity screenshot" />
+  <figcaption>The app as it first opens.</figcaption>
+</figure>
+
+<p><em>clicks get started</em></p>
+
+<figure>
+<img src="/img/yayornay-stuck.png" alt="YayOrNay blocked screenshot" />
+  <figcaption>Rats</figcaption>
+</figure>
+
+<p>Well, looks like our root-enabled emulator image isn’t going to work out here. Let’s launch a Google Play Services enabled one! Unfortunately these images are a little more locked down and we won’t be able to (easily) get root on them.</p>
+
+<figure>
+<img src="/img/first-map.png" alt="YayOrNay map screenshot" />
+  <figcaption>Trying again on a fully googleified emulator</figcaption>
+</figure>
+
+<p>Ok, so we have a map of San Francisco with a bunch of markers. Let’s zoom around and see if anything sticks out. This may have been the worst part of the challenge, zooming and panning with an emulator can get tedious 😄</p>
+
+<figure>
+<img src="/img/grid.png" alt="YayOrNay map screenshot" />
+  <figcaption>Aha!</figcaption>
+</figure>
+
+<p>Right in the middle of everything there’s a grid of some sort. It seems like the next step should be to isolate it. Because I know from the challenge prompt that these pins are being loaded from a database I’ll go looking for the app’s sqlite db.</p>
+
+<p>1. Find the package that contains our yayornay app.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb shell pm list packages | <span class="nb">grep </span>yayornay
+package:com.example.yayornay</code></pre></figure>
+
+<p>2. Switch to that package’s user</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb shell
+generic_x86:/ <span class="nv">$ </span>run-as com.example.yayornay</code></pre></figure>
+
+<p>3. Find the app’s database</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">generic_x86:/data/data/com.example.yayornay <span class="nv">$ </span><span class="nb">ls
+</span>cache  code_cache  databases  files  shared_prefs
+generic_x86:/data/data/com.example.yayornay <span class="nv">$ </span><span class="nb">cd </span>databases
+generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span><span class="nb">ls
+</span>Location.db  Location.db-journal</code></pre></figure>
+
+<p>4. List the tables in that database</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span>sqlite3 Location.db
+SQLite version 3.18.2 2017-07-21 07:56:09
+Enter <span class="s2">".help"</span> <span class="k">for </span>usage hints.
+sqlite&gt; .tables
+android_metadata  locations</code></pre></figure>
+
+<p>5. Inspect the table schema</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sqlite&gt; .schema locations
+CREATE TABLE IF NOT EXISTS <span class="s2">"locations"</span> <span class="o">(</span>
+	<span class="sb">`</span>date<span class="sb">`</span>	TEXT,
+	<span class="sb">`</span>latitude<span class="sb">`</span>	REAL,
+	<span class="sb">`</span>longitude<span class="sb">`</span>	REAL,
+	<span class="sb">`</span>color<span class="sb">`</span>	REAL
+<span class="o">)</span><span class="p">;</span></code></pre></figure>
+
+<p>We can see that the database has a list of lat,long pairs each with a date and a color. My first guess is that these correspond to the pins we saw on the map. Let’s dump the data and see what we get.</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">sqlite</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">locations</span> <span class="k">LIMIT</span> <span class="mi">5</span><span class="p">;</span>
+<span class="mi">02</span><span class="o">/</span><span class="mi">03</span><span class="o">/</span><span class="mi">2019</span><span class="o">|</span><span class="mi">37</span><span class="p">.</span><span class="mi">7842927</span><span class="o">|-</span><span class="mi">122</span><span class="p">.</span><span class="mi">4053593</span><span class="o">|</span><span class="mi">120</span><span class="p">.</span><span class="mi">0</span>
+<span class="mi">02</span><span class="o">/</span><span class="mi">03</span><span class="o">/</span><span class="mi">2019</span><span class="o">|</span><span class="mi">37</span><span class="p">.</span><span class="mi">7838412</span><span class="o">|-</span><span class="mi">122</span><span class="p">.</span><span class="mi">4041845</span><span class="o">|</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span>
+<span class="mi">02</span><span class="o">/</span><span class="mi">07</span><span class="o">/</span><span class="mi">2019</span><span class="o">|</span><span class="mi">37</span><span class="p">.</span><span class="mi">7863323436302</span><span class="o">|-</span><span class="mi">122</span><span class="p">.</span><span class="mi">42828886956</span><span class="o">|</span><span class="mi">120</span><span class="p">.</span><span class="mi">0</span>
+<span class="mi">02</span><span class="o">/</span><span class="mi">07</span><span class="o">/</span><span class="mi">2019</span><span class="o">|</span><span class="mi">37</span><span class="p">.</span><span class="mi">7851367932719</span><span class="o">|-</span><span class="mi">122</span><span class="p">.</span><span class="mi">402353584766</span><span class="o">|</span><span class="mi">120</span><span class="p">.</span><span class="mi">0</span>
+<span class="mi">02</span><span class="o">/</span><span class="mi">07</span><span class="o">/</span><span class="mi">2019</span><span class="o">|</span><span class="mi">37</span><span class="p">.</span><span class="mi">782343920755</span><span class="o">|-</span><span class="mi">122</span><span class="p">.</span><span class="mi">404699847102</span><span class="o">|</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span></code></pre></figure>
+
+<p>Looks like a list of dates, coordinates in and around San Francisco, and the hues for green (120) and red(0)! The next thing I did was go off of the prompt and try to</p>
+
+      </p>
+    </div>
+
+
+
+
+</section>
+
+<section class="post">
+  <header class="post-header">
+    <p class="post-meta">
+      <span class="post-date">
+        10 MAR 2019
+      </span>
+
+      •
+
+        <a class="post-cat" href="/categories/#Android">Android</a>
+
+        <span>/</span>
+
+
+        <a class="post-cat" href="/categories/#reverse engineering">reverse engineering</a>
+
+        <span>/</span>
+
+
+        <a class="post-cat" href="/categories/#CTF">CTF</a>
+
+
+
+    </p>
+    <h2>
+      <a href="/articles/2019-03/bsides-blink" class="post-title" title="BSidesSF CTF Blink Writeup">BSidesSF CTF Blink Writeup</a>
+
+    </h2>
+
+
+
+    </header>
+
+
+    <div class="post-description">
+      <p>
+        <p>The <a href="https://bsidessf.net">BSidesSF</a> CTF happened about a week ago! It was the first CTF I’ve tried to compete in and I had a lot of fun on the <code class="highlighter-rouge">▣</code> team. This is the first in a series of writeups on the challenges I participated in.</p>
+
+<p>Blink was the first mobile challenge in the event and served as a good introduction. The goal of the mobile challenges is to find a string (the “flag”) using clues hidden in an app. Often the flag is in the app binary itself, but sometimes the challenge may lead you elsewhere afterwards. Blink was a relatively easy “101” challenge, only worth 50 points (the most difficult challenges in the CTF were worth 600 or more).</p>
+
+<h3 id="analysis">Analysis</h3>
+
+<p>The first step in any challenge to open the prompt. It contained the text <code class="highlighter-rouge">Get past the Jedi mind trick to find the flag you are looking for.</code> and a link to an <a href="https://en.wikipedia.org/wiki/Android_application_package">apk file</a> (Android app). I booted up an Android Emulator and used a simple <a href="https://developer.android.com/studio/command-line/adb">adb</a> command to install the app.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb install blink.apk
+Success</code></pre></figure>
+
+<p>Opening the app presents us with:</p>
+
+<figure>
+<img src="/img/blink-ss-1.png" alt="Blink MainActivity screenshot" class="align-left" />
+  <figcaption>The app as it first opens.</figcaption>
+</figure>
+<p>If you aren’t familiar with Android, an activity is similar to a window in a traditional desktop app or a page on a website. The hint is essentially saying we need to navigate to a different page.</p>
+
+<p>The first place we should check for activities is the <code class="highlighter-rouge">AndroidManifest.xml</code> file. All of the accessible activities will be listed there. I used <a href="https://ibotpeaches.github.io/Apktool/">Apktool</a> to disassemble the app.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>apktool d ./blink.apk
+I: Using Apktool 2.3.4 on blink.apk
+I: Loading resource table...
+I: Decoding AndroidManifest.xml with resources...
+S: WARNING: Could not write to <span class="o">(</span>/Users/usmann/Library/apktool/framework<span class="o">)</span>, using /var/folders/8j/h8wpd_757p729cx_91j50g2m0000gn/T/ instead...
+S: Please be aware this is a volatile directory and frameworks could go missing, please utilize <span class="nt">--frame-path</span> <span class="k">if </span>the default storage directory is unavailable
+I: Loading resource table from file: /var/folders/8j/h8wpd_757p729cx_91j50g2m0000gn/T/1.apk
+I: Regular manifest package...
+I: Decoding file-resources...
+I: Decoding values <span class="k">*</span>/<span class="k">*</span> XMLs...
+I: Baksmaling classes.dex...
+I: Copying assets and libs...
+I: Copying unknown files...
+I: Copying original files...</code></pre></figure>
+
+<p>Then I opened up the Android Manifest..</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version="1.0" encoding="utf-8" standalone="no"?&gt;</span><span class="nt">&lt;manifest</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span> <span class="na">package=</span><span class="s">"com.example.blink"</span> <span class="na">platformBuildVersionCode=</span><span class="s">"1"</span> <span class="na">platformBuildVersionName=</span><span class="s">"1.0"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;application</span> <span class="na">android:allowBackup=</span><span class="s">"true"</span> <span class="na">android:debuggable=</span><span class="s">"true"</span> <span class="na">android:icon=</span><span class="s">"@mipmap/ic_launcher"</span> <span class="na">android:label=</span><span class="s">"@string/app_name"</span> <span class="na">android:roundIcon=</span><span class="s">"@mipmap/ic_launcher_round"</span> <span class="na">android:supportsRtl=</span><span class="s">"true"</span> <span class="na">android:theme=</span><span class="s">"@style/AppTheme"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;activity</span> <span class="na">android:label=</span><span class="s">"@string/title_activity_r2d2"</span> <span class="na">android:name=</span><span class="s">"com.example.blink.r2d2"</span> <span class="na">android:theme=</span><span class="s">"@style/AppTheme.NoActionBar"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">"com.example.blink.MainActivity"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;intent-filter&gt;</span>
+                <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">"android.intent.action.MAIN"</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">"android.intent.category.LAUNCHER"</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/intent-filter&gt;</span>
+        <span class="nt">&lt;/activity&gt;</span>
+    <span class="nt">&lt;/application&gt;</span>
+<span class="nt">&lt;/manifest&gt;</span></code></pre></figure>
+
+<p>Here we can see two activities: <code class="highlighter-rouge">com.example.blink.MainActivity</code> and <code class="highlighter-rouge">com.example.blink.r2d2</code>. We know that <code class="highlighter-rouge">MainActivity</code> is where we saw Obi Wan earlier because it has an intent filter that makes it the default activity. The next step is to launch the <code class="highlighter-rouge">r2d2</code> activity. Let’s whip out adb again and see what we can do.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb shell am start <span class="nt">-n</span> com.example.blink/.r2d2
+
+Starting: Intent <span class="o">{</span> <span class="nv">cmp</span><span class="o">=</span>com.example.blink/.r2d2 <span class="o">}</span>
+Security exception: Permission Denial: starting Intent <span class="o">{</span> <span class="nv">flg</span><span class="o">=</span>0x10000000 <span class="nv">cmp</span><span class="o">=</span>com.example.blink/.r2d2 <span class="o">}</span> from null <span class="o">(</span><span class="nv">pid</span><span class="o">=</span>21352, <span class="nv">uid</span><span class="o">=</span>2000<span class="o">)</span> not exported from uid 10089</code></pre></figure>
+
+<p>Well, that didn’t work. Looks like we don’t have permission to launch this activity. Let’s try something else!</p>
+
+<p><a href="https://xkcd.com/149/"><img src="https://imgs.xkcd.com/comics/sandwich.png" alt="xkcd 149" class="align-left" /></a></p>
+
+<p>Because my emulator is running a build of Android without Google Play Services in it, we can easily assume the root user.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb root
+restarting adbd as root
+
+<span class="nv">$ </span>adb shell am start <span class="nt">-n</span> com.example.blink/.r2d2
+Starting: Intent <span class="o">{</span> <span class="nv">cmp</span><span class="o">=</span>com.example.blink/.r2d2 <span class="o">}</span></code></pre></figure>
+
+<p>And it worked!</p>
+
+<p><img src="/img/blink-ss-2.png" alt="Blink r2d2 screenshot" class="align-left" /></p>
+
+<p>The flag was <code class="highlighter-rouge">CTF{PUCKMAN}</code>. The end! Tons of credit to @itsC0rg1 for putting the puzzle together, and BSidesSF for hosting.</p>
+
+      </p>
+    </div>
+
+
+
+
+</section>
+
+
+        <footer>
+  <!-- Matomo -->
+  <script type="text/javascript">
+    var _paq = window._paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    _paq.push(['enableHeartBeatTimer', 10]);
+    (function() {
+      var u="//157.230.95.125/";
+      _paq.push(['setTrackerUrl', u+'1pt.php']);
+      _paq.push(['setSiteId', '1']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'embed.js.1'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+  &copy; Usmann Khan
+</footer>
+
+      </div>
+    </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+</body>
+</html>

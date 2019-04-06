@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>binlog</title>
+    <description>A simple and awesome blog theme powered by jekyll.</description>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>2019-04-05</pubDate>
+    <lastBuildDate>Fri, 05 Apr 2019 21:30:29 -0700</lastBuildDate>
+    <generator>Jekyll v3.7.4</generator>
+
+      <item>
+        <title>BSidesSF CTF Yay Or Nay Writeup</title>
+        <description>&lt;p&gt;This is the second in a series of writeups on challenges from the &lt;a href=&quot;https://bsidessf.net&quot;&gt;BSidesSF CTF&lt;/a&gt;. You can see a writeup of the first challenge, Blink, &lt;a href=&quot;/articles/2019-03/bsides-blink&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Yay Or Nay&lt;/code&gt; was the second mobile challenge in the CTF, this time worth 200 points. Like last time, we start out with a prompt and an apk file. This time the prompt came in a little more handy.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Keep track of places you would love / hate to see, by dropping markers with a simple click. Try YayorNay v1.2 today!
+
+:::: Updated README :::: v 1.0 - Added short press, Yay support - Fix stability issues
+
+v 1.1 - Added long press, Nay support - Add labels
+
+v 1.2 - Populate from DB - Save to DB
+
+To-do - Fix stability issues - Bug fixes - Implement feature to view by day
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;First things first, let’s launch the app.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;adb install YayorNay.apk
+Success&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The app opens up with some instructions ond how to use it an a button to get started.&lt;/p&gt;
+
+&lt;figure&gt;
+&lt;img src=&quot;/img/yayornay-main.png&quot; alt=&quot;YayOrNay MainActivity screenshot&quot; /&gt;
+  &lt;figcaption&gt;The app as it first opens.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;&lt;em&gt;clicks get started&lt;/em&gt;&lt;/p&gt;
+
+&lt;figure&gt;
+&lt;img src=&quot;/img/yayornay-stuck.png&quot; alt=&quot;YayOrNay blocked screenshot&quot; /&gt;
+  &lt;figcaption&gt;Rats&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Well, looks like our root-enabled emulator image isn’t going to work out here. Let’s launch a Google Play Services enabled one! Unfortunately these images are a little more locked down and we won’t be able to (easily) get root on them.&lt;/p&gt;
+
+&lt;figure&gt;
+&lt;img src=&quot;/img/first-map.png&quot; alt=&quot;YayOrNay map screenshot&quot; /&gt;
+  &lt;figcaption&gt;Trying again on a fully googleified emulator&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Ok, so we have a map of San Francisco with a bunch of markers. Let’s zoom around and see if anything sticks out. This may have been the worst part of the challenge, zooming and panning with an emulator can get tedious 😄&lt;/p&gt;
+
+&lt;figure&gt;
+&lt;img src=&quot;/img/grid.png&quot; alt=&quot;YayOrNay map screenshot&quot; /&gt;
+  &lt;figcaption&gt;Aha!&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Right in the middle of everything there’s a grid of some sort. It seems like the next step should be to isolate it. Because I know from the challenge prompt that these pins are being loaded from a database I’ll go looking for the app’s sqlite db.&lt;/p&gt;
+
+&lt;p&gt;1. Find the package that contains our yayornay app.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;adb shell pm list packages | &lt;span class=&quot;nb&quot;&gt;grep &lt;/span&gt;yayornay
+package:com.example.yayornay&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;2. Switch to that package’s user&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;adb shell
+generic_x86:/ &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;run-as com.example.yayornay&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;3. Find the app’s database&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;generic_x86:/data/data/com.example.yayornay &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ls
+&lt;/span&gt;cache  code_cache  databases  files  shared_prefs
+generic_x86:/data/data/com.example.yayornay &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;databases
+generic_x86:/data/data/com.example.yayornay/databases &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ls
+&lt;/span&gt;Location.db  Location.db-journal&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;4. List the tables in that database&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;generic_x86:/data/data/com.example.yayornay/databases &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sqlite3 Location.db
+SQLite version 3.18.2 2017-07-21 07:56:09
+Enter &lt;span class=&quot;s2&quot;&gt;&quot;.help&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;usage hints.
+sqlite&amp;gt; .tables
+android_metadata  locations&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;5. Inspect the table schema&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sqlite&amp;gt; .schema locations
+CREATE TABLE IF NOT EXISTS &lt;span class=&quot;s2&quot;&gt;&quot;locations&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+	&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;date&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;	TEXT,
+	&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;latitude&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;	REAL,
+	&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;longitude&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;	REAL,
+	&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;color&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;	REAL
+&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;We can see that the database has a list of lat,long pairs each with a date and a color. My first guess is that these correspond to the pins we saw on the map. Let’s dump the data and see what we get.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;n&quot;&gt;sqlite&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;locations&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;02&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;03&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2019&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;37&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7842927&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;122&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4053593&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;120&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;02&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;03&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2019&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;37&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7838412&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;122&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4041845&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;02&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;07&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2019&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;37&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7863323436302&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;122&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;42828886956&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;120&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;02&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;07&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2019&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;37&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7851367932719&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;122&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;402353584766&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;120&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;02&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;07&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2019&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;37&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;782343920755&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;122&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;404699847102&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Looks like a list of dates, coordinates in and around San Francisco, and the hues for green (120) and red(0)! The next thing I did was go off of the prompt and try to&lt;/p&gt;
+</description>
+        <pubDate>2019-04-05</pubDate>
+        <link>/articles/2019-03/bsides-yayornay</link>
+        <guid isPermaLink="true">/articles/2019-03/bsides-yayornay</guid>
+
+
+        <category>Android</category>
+
+        <category>reverse engineering</category>
+
+        <category>CTF</category>
+
+      </item>
+
+      <item>
+        <title>BSidesSF CTF Blink Writeup</title>
+        <description>&lt;p&gt;The &lt;a href=&quot;https://bsidessf.net&quot;&gt;BSidesSF&lt;/a&gt; CTF happened about a week ago! It was the first CTF I’ve tried to compete in and I had a lot of fun on the &lt;code class=&quot;highlighter-rouge&quot;&gt;▣&lt;/code&gt; team. This is the first in a series of writeups on the challenges I participated in.&lt;/p&gt;
+
+&lt;p&gt;Blink was the first mobile challenge in the event and served as a good introduction. The goal of the mobile challenges is to find a string (the “flag”) using clues hidden in an app. Often the flag is in the app binary itself, but sometimes the challenge may lead you elsewhere afterwards. Blink was a relatively easy “101” challenge, only worth 50 points (the most difficult challenges in the CTF were worth 600 or more).&lt;/p&gt;
+
+&lt;h3 id=&quot;analysis&quot;&gt;Analysis&lt;/h3&gt;
+
+&lt;p&gt;The first step in any challenge to open the prompt. It contained the text &lt;code class=&quot;highlighter-rouge&quot;&gt;Get past the Jedi mind trick to find the flag you are looking for.&lt;/code&gt; and a link to an &lt;a href=&quot;https://en.wikipedia.org/wiki/Android_application_package&quot;&gt;apk file&lt;/a&gt; (Android app). I booted up an Android Emulator and used a simple &lt;a href=&quot;https://developer.android.com/studio/command-line/adb&quot;&gt;adb&lt;/a&gt; command to install the app.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;adb install blink.apk
+Success&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Opening the app presents us with:&lt;/p&gt;
+
+&lt;figure&gt;
+&lt;img src=&quot;/img/blink-ss-1.png&quot; alt=&quot;Blink MainActivity screenshot&quot; class=&quot;align-left&quot; /&gt;
+  &lt;figcaption&gt;The app as it first opens.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;If you aren’t familiar with Android, an activity is similar to a window in a traditional desktop app or a page on a website. The hint is essentially saying we need to navigate to a different page.&lt;/p&gt;
+
+&lt;p&gt;The first place we should check for activities is the &lt;code class=&quot;highlighter-rouge&quot;&gt;AndroidManifest.xml&lt;/code&gt; file. All of the accessible activities will be listed there. I used &lt;a href=&quot;https://ibotpeaches.github.io/Apktool/&quot;&gt;Apktool&lt;/a&gt; to disassemble the app.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apktool d ./blink.apk
+I: Using Apktool 2.3.4 on blink.apk
+I: Loading resource table...
+I: Decoding AndroidManifest.xml with resources...
+S: WARNING: Could not write to &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/Users/usmann/Library/apktool/framework&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, using /var/folders/8j/h8wpd_757p729cx_91j50g2m0000gn/T/ instead...
+S: Please be aware this is a volatile directory and frameworks could go missing, please utilize &lt;span class=&quot;nt&quot;&gt;--frame-path&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;the default storage directory is unavailable
+I: Loading resource table from file: /var/folders/8j/h8wpd_757p729cx_91j50g2m0000gn/T/1.apk
+I: Regular manifest package...
+I: Decoding file-resources...
+I: Decoding values &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; XMLs...
+I: Baksmaling classes.dex...
+I: Copying assets and libs...
+I: Copying unknown files...
+I: Copying original files...&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Then I opened up the Android Manifest..&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;no&quot;?&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;manifest&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;xmlns:android=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://schemas.android.com/apk/res/android&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;package=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;com.example.blink&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;platformBuildVersionCode=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;platformBuildVersionName=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1.0&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;application&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;android:allowBackup=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;android:debuggable=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;android:icon=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;@mipmap/ic_launcher&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;android:label=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;@string/app_name&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;android:roundIcon=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;@mipmap/ic_launcher_round&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;android:supportsRtl=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;android:theme=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;@style/AppTheme&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;activity&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;android:label=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;@string/title_activity_r2d2&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;android:name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;com.example.blink.r2d2&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;android:theme=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;@style/AppTheme.NoActionBar&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;activity&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;android:name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;com.example.blink.MainActivity&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;intent-filter&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;action&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;android:name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;android.intent.action.MAIN&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;category&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;android:name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;android.intent.category.LAUNCHER&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;/intent-filter&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/activity&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/application&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/manifest&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Here we can see two activities: &lt;code class=&quot;highlighter-rouge&quot;&gt;com.example.blink.MainActivity&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;com.example.blink.r2d2&lt;/code&gt;. We know that &lt;code class=&quot;highlighter-rouge&quot;&gt;MainActivity&lt;/code&gt; is where we saw Obi Wan earlier because it has an intent filter that makes it the default activity. The next step is to launch the &lt;code class=&quot;highlighter-rouge&quot;&gt;r2d2&lt;/code&gt; activity. Let’s whip out adb again and see what we can do.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;adb shell am start &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; com.example.blink/.r2d2
+
+Starting: Intent &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;cmp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;com.example.blink/.r2d2 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+Security exception: Permission Denial: starting Intent &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;flg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0x10000000 &lt;span class=&quot;nv&quot;&gt;cmp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;com.example.blink/.r2d2 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; from null &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;pid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;21352, &lt;span class=&quot;nv&quot;&gt;uid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2000&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; not exported from uid 10089&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Well, that didn’t work. Looks like we don’t have permission to launch this activity. Let’s try something else!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://xkcd.com/149/&quot;&gt;&lt;img src=&quot;https://imgs.xkcd.com/comics/sandwich.png&quot; alt=&quot;xkcd 149&quot; class=&quot;align-left&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Because my emulator is running a build of Android without Google Play Services in it, we can easily assume the root user.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;adb root
+restarting adbd as root
+
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;adb shell am start &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; com.example.blink/.r2d2
+Starting: Intent &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;cmp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;com.example.blink/.r2d2 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And it worked!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blink-ss-2.png&quot; alt=&quot;Blink r2d2 screenshot&quot; class=&quot;align-left&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The flag was &lt;code class=&quot;highlighter-rouge&quot;&gt;CTF{PUCKMAN}&lt;/code&gt;. The end! Tons of credit to @itsC0rg1 for putting the puzzle together, and BSidesSF for hosting.&lt;/p&gt;
+</description>
+        <pubDate>2019-04-05</pubDate>
+        <link>/articles/2019-03/bsides-blink</link>
+        <guid isPermaLink="true">/articles/2019-03/bsides-blink</guid>
+
+
+        <category>Android</category>
+
+        <category>reverse engineering</category>
+
+        <category>CTF</category>
+
+      </item>
+
+  </channel>
+</rss>
