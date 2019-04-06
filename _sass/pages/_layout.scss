@@ -1,39 +1,41 @@
 /* LAYOUT CSS */
 .cover {
-  background-color: $background-color;
+  background-color: $cover;
   position: fixed;
   text-align: center;
   width: 100%;
-  min-height: 400px;
-  padding: 30px 15px 20px;
+  min-height: 100px;
+  padding: 15px 15px 20px;
   z-index: 1;
-  @include media-query($small-screen) {
-    background-position: center;
-    padding: 30px;
-  }
-  @include media-query($medium-screen) {
-    height: 100vh;
-    position: initial;
-    width: 100%;
-  }
+  // @include media-query($medium-screen) {
+  //   height: 100vh;
+  //   position: fixed;
+  //   width: 100%;
+  //   padding: 2rem 1rem 2rem 1rem;
+  // }
 }
+
+.sidebar {
+  width: 100%;
+  // @include media-query($medium-screen) {
+  //   width: 16rem;
+  // }
+}
+
 .cover-card {
   color: $text-color;
   padding: 0 30px;
   .avatar {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    height: 50px;
     float: none;
-    @include media-query($medium-screen) {
-      margin-right: 0;
-    }
+    // @include media-query($medium-screen) {
+    //   margin-right: 0;
+    // }
   }
   .author_name {
-    display: block;
-    color: #F36170;
-    font-size: 1.75em;
-    text-transform: lowercase;
+    // display: block;
+    color: $orange_sidebar;
+    font-size: 1.5rem;
   }
   .author_job {
     display: block;
@@ -47,11 +49,11 @@
     font-size: 90%;
     display: block;
   }
-  @include media-query($medium-screen) {
-    text-align: right;
-    margin: 0 auto;
-    padding: 0 0px 80px;
-  }
+  // @include media-query($medium-screen) {
+  //   text-align: right;
+  //   margin: 0 auto;
+  //   padding: 0 0px 80px;
+  // }
 }
 .social-links {
   margin-top: 0.5em;
@@ -89,8 +91,7 @@
     & a {
       margin-top: 1em;
       text-transform: lowercase;
-      font-size: 85%;
-      color: $secondary;
+      color: $cyan;
       &:hover,
       &:focus {
         color: lighten($secondary, 14%);

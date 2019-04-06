@@ -1,21 +1,39 @@
 // Post listing
 .post-listing {
+  position: relative;
   background-color: $white;
-  position: absolute;
-  top: 400px;
+  top: 113px;
   z-index: 233;
+  // padding: 20px 20px 0;
   width: 100%;
-  padding: 20px 20px 0;
   -webkit-transform: translate3d(0,0,1px);
   transform: translate3d(0,0,1px);
+}
+
+.post-container {
+  //smol things
+  margin-left: 16px;
+  margin-right: 16px;
+  width: auto;
+  font-size: 18px;
+  line-height: 1.6em;
+  //end smol things
+  max-width: 710px;
+  position: relative;
+  top: 1em;
+
   @include media-query($small-screen) {
-    padding: 50px 30px 0;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.9em;
+    width: 80%
   }
   @include media-query($medium-screen) {
-    height: 100vh;
-    overflow-y: scroll;
-    position: initial;
-    top: 0;
+    font-size: 1em;
+    line-height: 1.65em;
+  }
+  @include media-query($larger-screen) {
+    max-width: 780px;
   }
 }
 
@@ -63,6 +81,7 @@ section.post {
 .post-meta {
   font-size: 13px;
   font-weight: bold;
+  margin: 1.2em 0 0 0;
 	.post-date {
 		color: $secondary;
 	}
@@ -79,6 +98,10 @@ section.post {
   }
 }
 
+.short-top {
+  margin: 0 0 0.7rem 0;
+}
+
 // Read more buttons
 
 a.read-more {
@@ -90,20 +113,15 @@ a.read-more {
 #post {
   padding-bottom: 50px;
   .post-header {
-    margin: 0 auto 50px;
+    margin-bottom: 1rem;
   }
 }
 
-#post h1 {
-  margin: 0.5em 0 1em;
-}
 #post h2 {
-  margin: 2em 0 0.8em;
   padding-bottom: 0.7em;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $base1;
 }
 #post h3 {
-  margin: 1.75em 0 1.2em;
   position: relative;
 }
 

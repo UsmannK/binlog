@@ -13,7 +13,11 @@ pre, code {
 code {
   color: #e96900;
   border-radius: 2px;
-  white-space: nowrap;
+  overflow: auto;
+}
+p code {
+  padding: 2px 5px 2px 5px;
+  white-space: default;
 }
 
 
@@ -42,9 +46,6 @@ pre code {
   margin: 0;
   pre {
     position: relative;
-  }
-  pre code {
-    color: #525252;
     &::before {
       content: attr(data-lang);
       position: absolute;
@@ -59,6 +60,9 @@ pre code {
       height: 20px;
       font-weight: 600;
     }
+  }
+  pre code {
+    color: #525252;
   }
   .hll { background-color: #ffffcc }
   .c { color: #B0B2B0; font-style: italic } /* Comment */

@@ -3,7 +3,7 @@
 # Site wide configuration
 ####################################
 #
-title: Leonids
+title: binlog
 email:
 description: A simple and awesome blog theme powered by jekyll.
 url: # the base hostname & protocol for your site
@@ -14,7 +14,7 @@ keywords: ["blog", "jekyll"]
 # Jekyll configuration
 ####################################
 #
-timezone:          Europe/Paris
+timezone:          America/Los_Angeles
 markdown:          kramdown
 highlighter:       rouge
 excerpt_separator: <!--more-->
@@ -27,14 +27,18 @@ kramdown:
   toc_levels: 1..6
   enable_coderay: false
 
+# plugins:
+#   - jekyll-figure
+jekyll-figure:
+  paragraphs: false
 #
 ###################################
 # Site Owner configuration
 ####################################
 #
 owner:
-  name: Leonids
-  avatar: leonids-logo.png
+  name: Usmann Khan
+  avatar: awoo.png
   job: "A jekyll theme"
   bio: "A simple and awesome blog theme powered by jekyll."
   email:
