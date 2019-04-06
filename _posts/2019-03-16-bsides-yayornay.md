@@ -102,4 +102,25 @@ sqlite> SELECT * FROM locations LIMIT 5;
 02/07/2019|37.782343920755|-122.404699847102|0.0
 {% endhighlight %}
 
-Looks like a list of dates, coordinates in and around San Francisco, and the hues for green (120) and red(0)! The next thing I did was go off of the prompt and try to 
+Looks like a list of dates, coordinates in and around San Francisco, and the hues for green (120) and red(0)! The next thing I did was go off of the prompt `Bug fixes - Implement feature to view by day` and check each day one by one. 
+
+{% highlight bash %}
+ generic_x86:/data/data/com.example.yayornay/databases $ cp Location.db Location.db.bak
+generic_x86:/data/data/com.example.yayornay/databases $ echo "delete from locations where date!='02/03/2019';" | sqlite3 Location.db
+generic_x86:/data/data/com.example.yayornay/databases $ echo "select distinct date from locations;" | sqlite3 Location.db
+02/03/2019
+{% endhighlight %}
+
+Back up the database, delete any records that don't match a given date, reload the app, restore the database, and repeat! Soon enough, on `02/08/2019` we see:
+
+{% figure [caption:"The isolated grid"] %}
+![YayOrNay grid screenshot](/img/isolated_grid.png)
+{% endfigure %}
+
+At this point I had more or less no idea what I was looking at. Luckily a teammate connected the dots ([pun intended](https://external-preview.redd.it/iAs9pKvYIascH7I-IlR43TrHFslY__jatvt1-1-EVc8.jpg?auto=webp&s=a1f5b8982da35a91b28ccc70f7303df508dac547)) between a grid 3 rows high and braille!
+
+{% figure [caption:"A handy dandy braille glyph sheet"] %}
+![Braille sheet](/img/braille_sheet.gif)
+{% endfigure %}
+
+Using the green pins as raised points, we can decode the flag to `Z3lda`!

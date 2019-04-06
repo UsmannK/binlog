@@ -6,7 +6,7 @@
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <pubDate>2019-04-05</pubDate>
-    <lastBuildDate>Fri, 05 Apr 2019 21:41:22 -0700</lastBuildDate>
+    <lastBuildDate>Fri, 05 Apr 2019 22:49:48 -0700</lastBuildDate>
     <generator>Jekyll v3.7.4</generator>
 
       <item>
@@ -106,7 +106,28 @@ CREATE TABLE IF NOT EXISTS &lt;span class=&quot;s2&quot;&gt;&quot;locations&quot
 &lt;span class=&quot;mi&quot;&gt;02&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;07&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2019&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;37&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7851367932719&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;122&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;402353584766&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;120&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
 &lt;span class=&quot;mi&quot;&gt;02&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;07&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2019&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;37&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;782343920755&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;122&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;404699847102&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;Looks like a list of dates, coordinates in and around San Francisco, and the hues for green (120) and red(0)! The next thing I did was go off of the prompt and try to&lt;/p&gt;
+&lt;p&gt;Looks like a list of dates, coordinates in and around San Francisco, and the hues for green (120) and red(0)! The next thing I did was go off of the prompt &lt;code class=&quot;highlighter-rouge&quot;&gt;Bug fixes - Implement feature to view by day&lt;/code&gt; and check each day one by one.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; generic_x86:/data/data/com.example.yayornay/databases &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cp Location.db Location.db.bak
+generic_x86:/data/data/com.example.yayornay/databases &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;delete from locations where date!='02/03/2019';&quot;&lt;/span&gt; | sqlite3 Location.db
+generic_x86:/data/data/com.example.yayornay/databases &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;select distinct date from locations;&quot;&lt;/span&gt; | sqlite3 Location.db
+02/03/2019&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Back up the database, delete any records that don’t match a given date, reload the app, restore the database, and repeat! Soon enough, on &lt;code class=&quot;highlighter-rouge&quot;&gt;02/08/2019&lt;/code&gt; we see:&lt;/p&gt;
+
+&lt;figure&gt;
+&lt;img src=&quot;/img/isolated_grid.png&quot; alt=&quot;YayOrNay grid screenshot&quot; /&gt;
+  &lt;figcaption&gt;The isolated grid&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;At this point I had more or less no idea what I was looking at. Luckily a teammate connected the dots (&lt;a href=&quot;https://external-preview.redd.it/iAs9pKvYIascH7I-IlR43TrHFslY__jatvt1-1-EVc8.jpg?auto=webp&amp;amp;s=a1f5b8982da35a91b28ccc70f7303df508dac547&quot;&gt;pun intended&lt;/a&gt;) between a grid 3 rows high and braille!&lt;/p&gt;
+
+&lt;figure&gt;
+&lt;img src=&quot;/img/braille_sheet.gif&quot; alt=&quot;Braille sheet&quot; /&gt;
+  &lt;figcaption&gt;A handy dandy braille glyph sheet&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Using the green pins as raised points, we can decode the flag to &lt;code class=&quot;highlighter-rouge&quot;&gt;Z3lda&lt;/code&gt;!&lt;/p&gt;
 </description>
         <pubDate>2019-04-05</pubDate>
         <link>/articles/2019-03/bsides-yayornay</link>
