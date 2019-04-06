@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>binlog</title>
-    <description>A simple and awesome blog theme powered by jekyll.</description>
-    <link>/</link>
-    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Usmann Khan</description>
+    <link>https://binlog.usmannkhan.com/</link>
+    <atom:link href="https://binlog.usmannkhan.com/feed.xml" rel="self" type="application/rss+xml"/>
     <pubDate>2019-04-05</pubDate>
-    <lastBuildDate>Fri, 05 Apr 2019 22:49:48 -0700</lastBuildDate>
+    <lastBuildDate>Fri, 05 Apr 2019 22:59:38 -0700</lastBuildDate>
     <generator>Jekyll v3.7.4</generator>
 
       <item>
@@ -130,8 +130,8 @@ generic_x86:/data/data/com.example.yayornay/databases &lt;span class=&quot;nv&qu
 &lt;p&gt;Using the green pins as raised points, we can decode the flag to &lt;code class=&quot;highlighter-rouge&quot;&gt;Z3lda&lt;/code&gt;!&lt;/p&gt;
 </description>
         <pubDate>2019-04-05</pubDate>
-        <link>/articles/2019-03/bsides-yayornay</link>
-        <guid isPermaLink="true">/articles/2019-03/bsides-yayornay</guid>
+        <link>https://binlog.usmannkhan.com/articles/2019-03/bsides-yayornay</link>
+        <guid isPermaLink="true">https://binlog.usmannkhan.com/articles/2019-03/bsides-yayornay</guid>
 
 
         <category>Android</category>
@@ -220,8 +220,8 @@ Starting: Intent &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&
 &lt;p&gt;The flag was &lt;code class=&quot;highlighter-rouge&quot;&gt;CTF{PUCKMAN}&lt;/code&gt;. The end! Tons of credit to @itsC0rg1 for putting the puzzle together, and BSidesSF for hosting.&lt;/p&gt;
 </description>
         <pubDate>2019-04-05</pubDate>
-        <link>/articles/2019-03/bsides-blink</link>
-        <guid isPermaLink="true">/articles/2019-03/bsides-blink</guid>
+        <link>https://binlog.usmannkhan.com/articles/2019-03/bsides-blink</link>
+        <guid isPermaLink="true">https://binlog.usmannkhan.com/articles/2019-03/bsides-blink</guid>
 
 
         <category>Android</category>
