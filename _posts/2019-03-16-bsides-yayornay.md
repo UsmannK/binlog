@@ -28,7 +28,7 @@ $ adb install YayorNay.apk
 Success
 {% endhighlight %}
 
-The app opens up with some instructions ond how to use it an a button to get started.
+The app opens up with some instructions ond how to use it and a button to get started.
 
 {% figure [caption:"The app as it first opens."] %}
 ![YayOrNay MainActivity screenshot](/img/yayornay-main.png)
