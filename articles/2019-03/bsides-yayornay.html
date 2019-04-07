@@ -197,7 +197,7 @@ Success</code></pre></figure>
   <figcaption>Aha!</figcaption>
 </figure>
 
-<p>Right in the middle of everything there’s a grid of some sort. It seems like the next step should be to isolate it. Because I know from the challenge prompt that these pins are being loaded from a database I’ll go looking for the app’s sqlite db.</p>
+<p>Right in the middle of everything there’s a grid of some sort. It seems like the next step should be to isolate it. I know from the challenge prompt that these pins are being loaded from a database so I’ll go looking for the app’s sqlite db.</p>
 
 <p>1. Find the package that contains our yayornay app.</p>
 
@@ -246,7 +246,7 @@ CREATE TABLE IF NOT EXISTS <span class="s2">"locations"</span> <span class="o">(
 
 <p>Looks like a list of dates, coordinates in and around San Francisco, and the hues for green (120) and red(0)! The next thing I did was go off of the prompt <code class="highlighter-rouge">Bug fixes - Implement feature to view by day</code> and check each day one by one.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"> generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span>cp Location.db Location.db.bak
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span>cp Location.db Location.db.bak
 generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"delete from locations where date!='02/03/2019';"</span> | sqlite3 Location.db
 generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"select distinct date from locations;"</span> | sqlite3 Location.db
 02/03/2019</code></pre></figure>
