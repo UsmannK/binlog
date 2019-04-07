@@ -633,7 +633,7 @@ a.read-more { padding: 5px 8px; }
 #post h3 { position: relative; }
 
 #page { padding-bottom: 50px; min-height: 70vh; }
-#page .page-header { margin: 0 auto 50px; }
+#page .page-header { margin: 0 auto 20px; }
 
 .post-navigation { background-color: #f6f6f6; -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
 

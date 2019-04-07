@@ -1,7 +1,8 @@
 ---
 layout: post
 title:  "BSidesSF CTF Yay Or Nay Writeup"
-categories: [Android, reverse engineering, CTF]
+categories: [CTF]
+tags: [test]
 date:   2019-03-19 00:00:00
 ---
 
@@ -52,7 +53,7 @@ Ok, so we have a map of San Francisco with a bunch of markers. Let's zoom around
 ![YayOrNay map screenshot](/img/grid.png)
 {% endfigure %}
 
-Right in the middle of everything there's a grid of some sort. It seems like the next step should be to isolate it. Because I know from the challenge prompt that these pins are being loaded from a database I'll go looking for the app's sqlite db.
+Right in the middle of everything there's a grid of some sort. It seems like the next step should be to isolate it. I know from the challenge prompt that these pins are being loaded from a database so I'll go looking for the app's sqlite db.
 
 1\. Find the package that contains our yayornay app.
 {% highlight bash %}
@@ -105,7 +106,7 @@ sqlite> SELECT * FROM locations LIMIT 5;
 Looks like a list of dates, coordinates in and around San Francisco, and the hues for green (120) and red(0)! The next thing I did was go off of the prompt `Bug fixes - Implement feature to view by day` and check each day one by one. 
 
 {% highlight bash %}
- generic_x86:/data/data/com.example.yayornay/databases $ cp Location.db Location.db.bak
+generic_x86:/data/data/com.example.yayornay/databases $ cp Location.db Location.db.bak
 generic_x86:/data/data/com.example.yayornay/databases $ echo "delete from locations where date!='02/03/2019';" | sqlite3 Location.db
 generic_x86:/data/data/com.example.yayornay/databases $ echo "select distinct date from locations;" | sqlite3 Location.db
 02/03/2019

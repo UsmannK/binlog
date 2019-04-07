@@ -18,28 +18,28 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="BSidesSF CTF Yay Or Nay Writeup | binlog">
   <meta name="twitter:description" content="This is the second in a series of writeups on challenges from the BSidesSF CTF. You can see a writeup of the first challenge, Blink, hereYay Or Nay was the s...">
-  <meta property="twitter:image" content="https://binlog.usmannkhan.com/img/solid-awoo.png">
+  <meta property="twitter:image" content="http://0.0.0.0:4000/img/solid-awoo.png">
 
 
 
   <!-- Open Graph Tags -->
   <meta property="og:type" content="blog">
-  <meta property="og:url" content="https://binlog.usmannkhan.com/articles/2019-03/bsides-yayornay">
+  <meta property="og:url" content="http://0.0.0.0:4000/articles/2019-03/bsides-yayornay">
   <meta property="og:title" content="BSidesSF CTF Yay Or Nay Writeup | binlog">
   <meta property="og:description" content="This is the second in a series of writeups on challenges from the BSidesSF CTF. You can see a writeup of the first challenge, Blink, hereYay Or Nay was the s...">
-  <meta property="og:image" content="https://binlog.usmannkhan.com/img/solid-awoo.png">
+  <meta property="og:image" content="http://0.0.0.0:4000/img/solid-awoo.png">
   <title>BSidesSF CTF Yay Or Nay Writeup | binlog</title>
 
   <!-- CSS files -->
   <link rel="stylesheet" href="/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/main.css">
 
-  <link rel="canonical" href="https://binlog.usmannkhan.com/articles/2019-03/bsides-yayornay">
-  <link rel="alternate" type="application/rss+xml" title="binlog" href="https://binlog.usmannkhan.com/feed.xml" />
+  <link rel="canonical" href="http://0.0.0.0:4000/articles/2019-03/bsides-yayornay">
+  <link rel="alternate" type="application/rss+xml" title="binlog" href="http://0.0.0.0:4000/feed.xml" />
 
   <!-- Icons -->
   <!-- 16x16 -->
-  <!-- <link rel="shortcut icon" href="https://binlog.usmannkhan.com/favicon.ico"> -->
+  <!-- <link rel="shortcut icon" href="http://0.0.0.0:4000/favicon.ico"> -->
   <!-- 32x32 -->
   <link rel="shortcut icon" href="/favicon.png">
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -54,27 +54,27 @@
 
 <div class="cover-card table-cell table-middle">
 
-  <a href="https://binlog.usmannkhan.com/">
+  <a href="http://0.0.0.0:4000/">
     <img src="/img/awoo.png" alt="" class="avatar">
   </a>
 
-  <a href="https://binlog.usmannkhan.com/" class="author_name">Usmann Khan</a>
+  <a href="http://0.0.0.0:4000/" class="author_name">Usmann Khan</a>
   <nav class="nav">
     <ul class="nav-list">
       <li class="nav-item">
-        <a href="https://binlog.usmannkhan.com/">home</a>
+        <a href="http://0.0.0.0:4000/">home</a>
       </li>
 
       <li class="nav-item">
-        <a href="https://binlog.usmannkhan.com/about/">About</a>
+        <a href="http://0.0.0.0:4000/about/">About</a>
       </li>
 
       <li class="nav-item">
-        <a href="https://binlog.usmannkhan.com/archive/">Archive</a>
+        <a href="http://0.0.0.0:4000/archive/">Archive</a>
       </li>
 
       <li class="nav-item">
-        <a href="https://binlog.usmannkhan.com/categories/">Categories</a>
+        <a href="http://0.0.0.0:4000/categories/">Categories</a>
       </li>
 
     </ul>
@@ -197,7 +197,7 @@ Success</code></pre></figure>
   <figcaption>Aha!</figcaption>
 </figure>
 
-<p>Right in the middle of everything there’s a grid of some sort. It seems like the next step should be to isolate it. Because I know from the challenge prompt that these pins are being loaded from a database I’ll go looking for the app’s sqlite db.</p>
+<p>Right in the middle of everything there’s a grid of some sort. It seems like the next step should be to isolate it. I know from the challenge prompt that these pins are being loaded from a database so I’ll go looking for the app’s sqlite db.</p>
 
 <p>1. Find the package that contains our yayornay app.</p>
 
@@ -246,7 +246,7 @@ CREATE TABLE IF NOT EXISTS <span class="s2">"locations"</span> <span class="o">(
 
 <p>Looks like a list of dates, coordinates in and around San Francisco, and the hues for green (120) and red(0)! The next thing I did was go off of the prompt <code class="highlighter-rouge">Bug fixes - Implement feature to view by day</code> and check each day one by one.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"> generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span>cp Location.db Location.db.bak
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span>cp Location.db Location.db.bak
 generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"delete from locations where date!='02/03/2019';"</span> | sqlite3 Location.db
 generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"select distinct date from locations;"</span> | sqlite3 Location.db
 02/03/2019</code></pre></figure>
@@ -295,8 +295,8 @@ generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span>
     </div>
     </div>
   </div>
-  <script type="text/javascript" src="https://binlog.usmannkhan.com/js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="https://binlog.usmannkhan.com/js/main.js"></script>
+  <script type="text/javascript" src="http://0.0.0.0:4000/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="http://0.0.0.0:4000/js/main.js"></script>
 
 </body>
 </html>

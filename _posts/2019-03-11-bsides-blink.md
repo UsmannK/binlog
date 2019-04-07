@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "BSidesSF CTF Blink Writeup"
-categories: [Android, reverse engineering, CTF]
+categories: [CTF]
 date:   2019-03-11 00:00:00
 ---
 
@@ -32,8 +32,6 @@ $ apktool d ./blink.apk
 I: Using Apktool 2.3.4 on blink.apk
 I: Loading resource table...
 I: Decoding AndroidManifest.xml with resources...
-S: WARNING: Could not write to (/Users/usmann/Library/apktool/framework), using /var/folders/8j/h8wpd_757p729cx_91j50g2m0000gn/T/ instead...
-S: Please be aware this is a volatile directory and frameworks could go missing, please utilize --frame-path if the default storage directory is unavailable
 I: Loading resource table from file: /var/folders/8j/h8wpd_757p729cx_91j50g2m0000gn/T/1.apk
 I: Regular manifest package...
 I: Decoding file-resources...
