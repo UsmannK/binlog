@@ -18,28 +18,28 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="BSidesSF CTF Yay Or Nay Writeup | binlog">
   <meta name="twitter:description" content="This is the second in a series of writeups on challenges from the BSidesSF CTF. You can see a writeup of the first challenge, Blink, hereYay Or Nay was the s...">
-  <meta property="twitter:image" content="http://0.0.0.0:4000/img/solid-awoo.png">
+  <meta property="twitter:image" content="https://binlog.usmannkhan.com/img/solid-awoo.png">
 
 
 
   <!-- Open Graph Tags -->
   <meta property="og:type" content="blog">
-  <meta property="og:url" content="http://0.0.0.0:4000/articles/2019-03/bsides-yayornay">
+  <meta property="og:url" content="https://binlog.usmannkhan.com/articles/2019-03/bsides-yayornay">
   <meta property="og:title" content="BSidesSF CTF Yay Or Nay Writeup | binlog">
   <meta property="og:description" content="This is the second in a series of writeups on challenges from the BSidesSF CTF. You can see a writeup of the first challenge, Blink, hereYay Or Nay was the s...">
-  <meta property="og:image" content="http://0.0.0.0:4000/img/solid-awoo.png">
+  <meta property="og:image" content="https://binlog.usmannkhan.com/img/solid-awoo.png">
   <title>BSidesSF CTF Yay Or Nay Writeup | binlog</title>
 
   <!-- CSS files -->
   <link rel="stylesheet" href="/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/main.css">
 
-  <link rel="canonical" href="http://0.0.0.0:4000/articles/2019-03/bsides-yayornay">
-  <link rel="alternate" type="application/rss+xml" title="binlog" href="http://0.0.0.0:4000/feed.xml" />
+  <link rel="canonical" href="https://binlog.usmannkhan.com/articles/2019-03/bsides-yayornay">
+  <link rel="alternate" type="application/rss+xml" title="binlog" href="https://binlog.usmannkhan.com/feed.xml" />
 
   <!-- Icons -->
   <!-- 16x16 -->
-  <!-- <link rel="shortcut icon" href="http://0.0.0.0:4000/favicon.ico"> -->
+  <!-- <link rel="shortcut icon" href="https://binlog.usmannkhan.com/favicon.ico"> -->
   <!-- 32x32 -->
   <link rel="shortcut icon" href="/favicon.png">
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -50,33 +50,33 @@
   <div class="row">
     <div class="col s12">
       <div class="table cover sidebar">
-
+        
 
 <div class="cover-card table-cell table-middle">
-
-  <a href="http://0.0.0.0:4000/">
+  
+  <a href="https://binlog.usmannkhan.com/">
     <img src="/img/awoo.png" alt="" class="avatar">
   </a>
-
-  <a href="http://0.0.0.0:4000/" class="author_name">Usmann Khan</a>
+  
+  <a href="https://binlog.usmannkhan.com/" class="author_name">Usmann Khan</a>
   <nav class="nav">
     <ul class="nav-list">
       <li class="nav-item">
-        <a href="http://0.0.0.0:4000/">home</a>
+        <a href="https://binlog.usmannkhan.com/">home</a>
       </li>
-
+       
       <li class="nav-item">
-        <a href="http://0.0.0.0:4000/about/">About</a>
+        <a href="https://binlog.usmannkhan.com/about/">About</a>
       </li>
-
+        
       <li class="nav-item">
-        <a href="http://0.0.0.0:4000/archive/">Archive</a>
+        <a href="https://binlog.usmannkhan.com/archive/">Archive</a>
       </li>
-
+          
       <li class="nav-item">
-        <a href="http://0.0.0.0:4000/categories/">Categories</a>
+        <a href="https://binlog.usmannkhan.com/categories/">Categories</a>
       </li>
-
+               
     </ul>
   </nav>
   <script type="text/javascript">
@@ -93,31 +93,31 @@
 </script>
 <div class="social-links">
   <ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
   </ul>
 </div>
 
@@ -126,7 +126,7 @@
       </div>
       <div class="post-listing">
       <div class="post-container">
-
+        
 
 
 <div id="post">
@@ -138,10 +138,10 @@
       </span>
       •
       <span class="read-time" title="Estimated read time">
-
-
+  
+  
     4 mins read
-
+  
 </span>
 
     </span>
@@ -151,9 +151,9 @@
   <article class="post-content">
     <p>This is the second in a series of writeups on challenges from the <a href="https://bsidessf.net">BSidesSF CTF</a>. You can see a writeup of the first challenge, Blink, <a href="/articles/2019-03/bsides-blink">here</a></p>
 
-<p><code class="highlighter-rouge">Yay Or Nay</code> was the second mobile challenge in the CTF, this time worth 200 points. Like last time, we start out with a prompt and an apk file. This time the prompt came in a little more handy.</p>
+<p><code class="language-plaintext highlighter-rouge">Yay Or Nay</code> was the second mobile challenge in the CTF, this time worth 200 points. Like last time, we start out with a prompt and an apk file. This time the prompt came in a little more handy.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Keep track of places you would love / hate to see, by dropping markers with a simple click. Try YayorNay v1.2 today!
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Keep track of places you would love / hate to see, by dropping markers with a simple click. Try YayorNay v1.2 today!
 
 :::: Updated README :::: v 1.0 - Added short press, Yay support - Fix stability issues
 
@@ -166,7 +166,7 @@ To-do - Fix stability issues - Bug fixes - Implement feature to view by day
 
 <p>First things first, let’s launch the app.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb install YayorNay.apk
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb <span class="nb">install </span>YayorNay.apk
 Success</code></pre></figure>
 
 <p>The app opens up with some instructions on how to use it and a button to get started.</p>
@@ -229,7 +229,7 @@ android_metadata  locations</code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">sqlite&gt; .schema locations
 CREATE TABLE IF NOT EXISTS <span class="s2">"locations"</span> <span class="o">(</span>
-	<span class="sb">`</span>date<span class="sb">`</span>	TEXT,
+	<span class="sb">`</span><span class="nb">date</span><span class="sb">`</span>	TEXT,
 	<span class="sb">`</span>latitude<span class="sb">`</span>	REAL,
 	<span class="sb">`</span>longitude<span class="sb">`</span>	REAL,
 	<span class="sb">`</span>color<span class="sb">`</span>	REAL
@@ -244,14 +244,14 @@ CREATE TABLE IF NOT EXISTS <span class="s2">"locations"</span> <span class="o">(
 <span class="mi">02</span><span class="o">/</span><span class="mi">07</span><span class="o">/</span><span class="mi">2019</span><span class="o">|</span><span class="mi">37</span><span class="p">.</span><span class="mi">7851367932719</span><span class="o">|-</span><span class="mi">122</span><span class="p">.</span><span class="mi">402353584766</span><span class="o">|</span><span class="mi">120</span><span class="p">.</span><span class="mi">0</span>
 <span class="mi">02</span><span class="o">/</span><span class="mi">07</span><span class="o">/</span><span class="mi">2019</span><span class="o">|</span><span class="mi">37</span><span class="p">.</span><span class="mi">782343920755</span><span class="o">|-</span><span class="mi">122</span><span class="p">.</span><span class="mi">404699847102</span><span class="o">|</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span></code></pre></figure>
 
-<p>Looks like a list of dates, coordinates in and around San Francisco, and the hues for green (120) and red(0)! The next thing I did was go off of the prompt <code class="highlighter-rouge">Bug fixes - Implement feature to view by day</code> and check each day one by one.</p>
+<p>Looks like a list of dates, coordinates in and around San Francisco, and the hues for green (120) and red(0)! The next thing I did was go off of the prompt <code class="language-plaintext highlighter-rouge">Bug fixes - Implement feature to view by day</code> and check each day one by one.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span>cp Location.db Location.db.bak
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span><span class="nb">cp </span>Location.db Location.db.bak
 generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"delete from locations where date!='02/03/2019';"</span> | sqlite3 Location.db
 generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"select distinct date from locations;"</span> | sqlite3 Location.db
 02/03/2019</code></pre></figure>
 
-<p>Back up the database, delete any records that don’t match a given date, reload the app, restore the database, and repeat! Soon enough, on <code class="highlighter-rouge">02/08/2019</code> we see:</p>
+<p>Back up the database, delete any records that don’t match a given date, reload the app, restore the database, and repeat! Soon enough, on <code class="language-plaintext highlighter-rouge">02/08/2019</code> we see:</p>
 
 <figure>
 <img src="/img/isolated_grid.png" alt="YayOrNay grid screenshot" />
@@ -265,7 +265,7 @@ generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span>
   <figcaption>A handy dandy braille glyph sheet</figcaption>
 </figure>
 
-<p>Using the green pins as raised points, we can decode the flag to <code class="highlighter-rouge">Z3lda</code>!</p>
+<p>Using the green pins as raised points, we can decode the flag to <code class="language-plaintext highlighter-rouge">Z3lda</code>!</p>
 
   </article>
 </div>
@@ -295,8 +295,8 @@ generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span>
     </div>
     </div>
   </div>
-  <script type="text/javascript" src="http://0.0.0.0:4000/js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="http://0.0.0.0:4000/js/main.js"></script>
+  <script type="text/javascript" src="https://binlog.usmannkhan.com/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://binlog.usmannkhan.com/js/main.js"></script>
 
 </body>
 </html>

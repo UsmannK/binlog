@@ -18,28 +18,28 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="binlog">
   <meta name="twitter:description" content="Usmann Khan">
-  <meta property="twitter:image" content="http://0.0.0.0:4000/img/solid-awoo.png">
+  <meta property="twitter:image" content="https://binlog.usmannkhan.com/img/solid-awoo.png">
 
 
 
   <!-- Open Graph Tags -->
   <meta property="og:type" content="blog">
-  <meta property="og:url" content="http://0.0.0.0:4000/">
+  <meta property="og:url" content="https://binlog.usmannkhan.com/">
   <meta property="og:title" content="binlog">
   <meta property="og:description" content="Usmann Khan">
-  <meta property="og:image" content="http://0.0.0.0:4000/img/solid-awoo.png">
+  <meta property="og:image" content="https://binlog.usmannkhan.com/img/solid-awoo.png">
   <title>binlog</title>
 
   <!-- CSS files -->
   <link rel="stylesheet" href="/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/main.css">
 
-  <link rel="canonical" href="http://0.0.0.0:4000/">
-  <link rel="alternate" type="application/rss+xml" title="binlog" href="http://0.0.0.0:4000/feed.xml" />
+  <link rel="canonical" href="https://binlog.usmannkhan.com/">
+  <link rel="alternate" type="application/rss+xml" title="binlog" href="https://binlog.usmannkhan.com/feed.xml" />
 
   <!-- Icons -->
   <!-- 16x16 -->
-  <!-- <link rel="shortcut icon" href="http://0.0.0.0:4000/favicon.ico"> -->
+  <!-- <link rel="shortcut icon" href="https://binlog.usmannkhan.com/favicon.ico"> -->
   <!-- 32x32 -->
   <link rel="shortcut icon" href="/favicon.png">
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -50,33 +50,33 @@
   <div class="row">
     <div class="col s12">
       <div class="table cover sidebar">
-
+        
 
 <div class="cover-card table-cell table-middle">
-
-  <a href="http://0.0.0.0:4000/">
+  
+  <a href="https://binlog.usmannkhan.com/">
     <img src="/img/awoo.png" alt="" class="avatar">
   </a>
-
-  <a href="http://0.0.0.0:4000/" class="author_name">Usmann Khan</a>
+  
+  <a href="https://binlog.usmannkhan.com/" class="author_name">Usmann Khan</a>
   <nav class="nav">
     <ul class="nav-list">
       <li class="nav-item">
-        <a href="http://0.0.0.0:4000/">home</a>
+        <a href="https://binlog.usmannkhan.com/">home</a>
       </li>
-
+       
       <li class="nav-item">
-        <a href="http://0.0.0.0:4000/about/">About</a>
+        <a href="https://binlog.usmannkhan.com/about/">About</a>
       </li>
-
+        
       <li class="nav-item">
-        <a href="http://0.0.0.0:4000/archive/">Archive</a>
+        <a href="https://binlog.usmannkhan.com/archive/">Archive</a>
       </li>
-
+          
       <li class="nav-item">
-        <a href="http://0.0.0.0:4000/categories/">Categories</a>
+        <a href="https://binlog.usmannkhan.com/categories/">Categories</a>
       </li>
-
+               
     </ul>
   </nav>
   <script type="text/javascript">
@@ -93,31 +93,31 @@
 </script>
 <div class="social-links">
   <ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
   </ul>
 </div>
 
@@ -126,317 +126,38 @@
       </div>
       <div class="post-listing">
       <div class="post-container">
-
-<section class="post">
-  <header class="post-header">
-    <p class="post-meta">
-      <span class="post-date">
-        5 APR 2019
-      </span>
-
-      •
-
-        <a class="post-cat" href="http://0.0.0.0:4000/categories/#CTF">CTF</a>
-
-
-
-    </p>
-    <h2>
-      <a href="http://0.0.0.0:4000/articles/2019-04/bsides-weather" class="post-title" title="BSidesSF CTF Weather Companion Writeup">BSidesSF CTF Weather Companion Writeup</a>
-
-    </h2>
-
-
-
-    </header>
-
-
-    <div class="post-description">
-      <p>
-        <p>This is the third in a series of writeups on challenges from the <a href="https://bsidessf.net">BSidesSF CTF</a>. You can see a writeup of the first challenge, Blink, <a href="/articles/2019-03/bsides-blink">here</a> and the second, Yay or Nay, <a href="/articles/2019-04/bsides-yayornay">here</a>.</p>
-
-<p><code class="highlighter-rouge">Weather Companion</code> was the final mobile challenge in the CTF, this time worth 350 points! We’re provided with an apk file and a prompt that doesn’t set us up with much:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A simple weather application that fetches and displays the weather. What hides within?
-</code></pre></div></div>
-
-<p>Launching up the app we find that they were true to their word. A simple weather application:</p>
-
-<figure>
-<img src="/img/weather_main.png" alt="Weather Companion MainActivity screenshot" />
-  <figcaption>The app as it first opens.</figcaption>
-</figure>
-
-<p>Given that the only information we have is that we are fetching the weather, I launched Charles Proxy to try and get some more information on the network request. It turned out that the request was using TLS and we couldn’t see the payload. Having had to go through the pain of getting the various keystores on an Android device and Charles Proxy working together before, I put this strategy off for now. The one thing I did learn was that the weather request was going to a Google owned IP address.</p>
-
-<p>Next I decompiled the apk with <a href="https://github.com/skylot/jadx">jadx</a>. The application was super obfuscated (presumably via <a href="https://developer.android.com/studio/build/shrink-code">ProGuard</a>). All of the imported packages were renamed to single letters, but the main application was left easy to find.</p>
-
-<figure>
-<img src="/img/weathercompanion_file_tree.png" alt="Weather Companion decompiled files" />
-  <figcaption>The obfuscated file tree.</figcaption>
-</figure>
-
-<p>Going straight to the MainActivity we find an <code class="highlighter-rouge">onCreate()</code> method that instantiates an <code class="highlighter-rouge">example.MyApplication.a</code> object and calls <code class="highlighter-rouge">a#execute()</code>.</p>
-
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">c</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">bundle</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">bundle</span><span class="o">);</span>
-        <span class="n">setContentView</span><span class="o">((</span><span class="kt">int</span><span class="o">)</span> <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
-        <span class="n">c</span><span class="o">().</span><span class="na">a</span><span class="o">((</span><span class="n">Toolbar</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">toolbar</span><span class="o">));</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="k">new</span> <span class="nf">a</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">getApplicationContext</span><span class="o">()).</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">Void</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span></code></pre></figure>
-
-<p>The <code class="highlighter-rouge">a</code> class is pretty long, I’ve removed some parts for brevity:</p>
-
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">a</span> <span class="kd">extends</span> <span class="n">AsyncTask</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">,</span> <span class="n">Void</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="nf">doInBackground</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">String</span> <span class="n">str2</span> <span class="o">=</span> <span class="s">"weather-companion"</span><span class="o">;</span>
-        <span class="n">String</span> <span class="n">str3</span> <span class="o">=</span> <span class="s">"weather.json"</span><span class="o">;</span>
-        <span class="n">String</span> <span class="n">str4</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">Utils</span> <span class="n">utils</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Utils</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">b</span><span class="o">);</span>
-            <span class="n">String</span> <span class="n">a</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">.</span><span class="na">a</span><span class="o">(</span><span class="s">"LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2QUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktZd2dnU2lBZ0VBQW9JQkFRQ2JOYUpYN3FaMlNlYzQKNVc0aXIreVlYSjNJd2paOGZ3eXcwUFpTb2lUYi9pSnFUY0trL2x0alA2MVRySkhCNU1xS202VnovV0d3N0dTbQpuZDIxeE1GcWNsd3VHOE43Zit6aElLMFh1dlJCclMrY01FaHcwUmJITlViY08zWmFnaEtmZmFMVGh6UFk0eDJyCkhoL044bFVZaTRUQjhXQUdhQXpDSkgzcFVpOXJURzQrdWN4TzZwTU56My9FTnp5T1NtaWhSOVhiNU9rTVkvQXEKN05KN0JBd0g4b1NXUmxUbGxhQzhDaGw4d0RkdW42ZktXZ1lZbW1jQldYU2pyb3B1OGY2TVI3dk1NM0YwUEV1YQpZQnoxWnB4VnZZYzFpaU1TMFdpTnRBYTFaQnVXaFJlbkFpVGZ3T0N0NHJJU2ZiZ1lTcUNUU29LNXRPV1M1MnRNCg=="</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
-            <span class="n">String</span> <span class="n">str5</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">utils</span><span class="o">.</span><span class="na">dks</span><span class="o">());</span>
-            <span class="n">String</span> <span class="n">str6</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">utils</span><span class="o">.</span><span class="na">ss</span><span class="o">(</span><span class="s">"CnoM+J76ft/1b1qCH4j4+/0h/EHG+iWbhzfijs5a7XHKINC8ach6YLbhAyUm9+mI\nGuGVAklGeeN5InzSubRcrL8BSobAIygkXw9aSioF2wj2TYMDYncA0KVLR0nkEAWf\nPFlp2YQLIIw0nowmk0PPSp0F+DXOtDP7i7xcFZWzVjy7ScWz/G9bnxqilMAmg3MH\n+QGEzCKu/JZ5p6w9iqmTXd3VyzUI/FFmIHsjDnkS8ImDyNv69seh/QFgG8u7PcTq\nYRm8F0dd7hoof7tBQX/MejFDui8qbrtMTh0agHEsnIY7NalXTWId2FYurIuZuWrM\nz94zTZR2BjXOtSKSFJpTETuZ/JkXTiNT0WJgTjMgawj+eNpEMSMNNcsSdVWSuKAr\n"</span><span class="o">,</span> <span class="mi">390</span><span class="o">));</span>
-            <span class="n">String</span> <span class="n">a2</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">.</span><span class="na">a</span><span class="o">(</span><span class="s">"M5VXSRDXNBVGCZDWOBUWCWJYG52FAK3BOIYU2VSYORSVGMLRINEW2YSHMZREO6KLJV3SWNLPKEXWY5KINRMHGOLWKFTUO53ILFGVCWAKNJCVGNTTJ5ITKNCJMREU24SPINEG4Q2WMZ5GWMDSONKHM22KPFFWQMKNGJDTANKDJFHUERRXJZUVSRZVKBSFEQSUGVAW6R2BIJCXOVAKIZHHEUTFIR5DSRDQIFYHGYLOINHGGV2ZHFIG6TKJMUZWYQZTKRJTIS3LG5WDG6KSJZHE44ZTONEGY5BXJZYVQ5DKPFKEKK2LHAZS6VIKJVQSWUCIMRYTAWKTJBBVCV2VGM2VE2DPOJCDOVCPHEZDERBTG5TUMRCZGA4DA6LDNBBEYTJZGZLGC42RKRGWKZSKMRCEQU2VJYYTO2IKLJZEURDBNR2WS6DQKA3S6YRQOFKGYUCCHFFDQ5KZNJEDE5DMIZLSWRSCIF2TS22DM5MUEY3IHBLHM6KCPJWEOYLZGVZDAN3KN5JGU5IKMNSG4VTGOJDUCVLELJJEY6CBGVUHESLBJN3EWRTZGI4EGYLBJNLC63C2JZETSTTNMRNG45DKGZQUSUJQOJ5FKV3JMRHVC43NNIZG6NAKG5LGGQLSNQ2VKTTVOJUHQNDVNBTTER2DNRRVKSKILE2VSZCFPBEGMRLVNJBHKNTVJVIWIWTKIJYFQOBXOVXWCZ3HIM3WU52KMFXFCQYKNRAXAVCQMMZTINZYM4XW22DPHFJTKZKEJV3T2PIKFUWS2LJNIVHEIICQKJEVMQKUIUQEWRKZFUWS2LJNBI======"</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
-            <span class="n">StringBuilder</span> <span class="n">stringBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-            <span class="n">stringBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
-            <span class="n">stringBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">str5</span><span class="o">);</span>
-            <span class="n">stringBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">str6</span><span class="o">);</span>
-            <span class="n">stringBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">a2</span><span class="o">);</span>
-            <span class="n">a</span> <span class="o">=</span> <span class="n">stringBuilder</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
-            <span class="n">StringBuilder</span> <span class="n">stringBuilder2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(</span><span class="s">"{\"type\": \""</span><span class="o">);</span>
-            <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">utils</span><span class="o">.</span><span class="na">a</span><span class="o">.</span><span class="na">getResources</span><span class="o">().</span><span class="na">getString</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">type</span><span class="o">));</span>
-            <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\","</span><span class="o">);</span>
-            <span class="n">str5</span> <span class="o">=</span> <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
-            <span class="n">StringBuilder</span> <span class="n">stringBuilder3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-            <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">str5</span><span class="o">);</span>
-            <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\"project_id\": \""</span><span class="o">);</span>
-            <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">Utils</span><span class="o">.</span><span class="na">a</span><span class="o">(</span><span class="n">utils</span><span class="o">.</span><span class="na">b</span><span class="o">));</span>
-            <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\","</span><span class="o">);</span>
-            <span class="n">str5</span> <span class="o">=</span> <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
-            <span class="n">stringBuilder3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-            <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">str5</span><span class="o">);</span>
-            <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\"private_key_id\": \""</span><span class="o">);</span>
-            <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">Utils</span><span class="o">.</span><span class="na">a</span><span class="o">());</span>
-            <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\","</span><span class="o">);</span>
-            <span class="n">str5</span> <span class="o">=</span> <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
-            <span class="n">stringBuilder3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-            <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">str5</span><span class="o">);</span>
-            <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\"private_key\": \""</span><span class="o">);</span>
-            <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="s">"\n"</span><span class="o">,</span> <span class="s">"\\n"</span><span class="o">));</span>
-            <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\","</span><span class="o">);</span>
-            <span class="n">a</span> <span class="o">=</span> <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
-            <span class="n">stringBuilder3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-            <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
-            <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\"client_email\": \""</span><span class="o">);</span>
-            <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"weather-companion-service-acco@bsides-sf-ctf-2019.iam.gserviceaccount.com"</span><span class="o">);</span>
-            <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\","</span><span class="o">);</span>
-            <span class="n">a</span> <span class="o">=</span> <span class="n">stringBuilder3</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
-            <span class="n">stringBuilder2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-            <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
-            <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\"client_id\": \""</span><span class="o">);</span>
-            <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">BigInteger</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">utils</span><span class="o">.</span><span class="na">gci</span><span class="o">()).</span><span class="na">multiply</span><span class="o">(</span><span class="n">BigInteger</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">19</span><span class="o">)).</span><span class="na">multiply</span><span class="o">(</span><span class="n">BigInteger</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">305363017965794407L</span><span class="o">)).</span><span class="na">toString</span><span class="o">());</span>
-            <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\","</span><span class="o">);</span>
-            <span class="n">a</span> <span class="o">=</span> <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
-            <span class="n">stringBuilder2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-            <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
-            <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\"auth_uri\": \""</span><span class="o">);</span>
-            <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">utils</span><span class="o">.</span><span class="na">ss</span><span class="o">(</span><span class="s">"uggcf://nppbhagf.tbbtyr.pbz/b/bnhgu2/nhgu"</span><span class="o">,</span> <span class="mi">41</span><span class="o">)));</span>
-            <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\","</span><span class="o">);</span>
-            <span class="n">a</span> <span class="o">=</span> <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
-            <span class="n">stringBuilder2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-            <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
-            <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\"token_uri\": \""</span><span class="o">);</span>
-            <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">utils</span><span class="o">.</span><span class="na">ss</span><span class="o">(</span><span class="s">"uggcf://bnhgu2.tbbtyrncvf.pbz/gbxra"</span><span class="o">,</span> <span class="mi">35</span><span class="o">)));</span>
-            <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\","</span><span class="o">);</span>
-            <span class="n">String</span> <span class="n">stringBuilder4</span> <span class="o">=</span> <span class="n">stringBuilder2</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
-            <span class="n">StringBuilder</span> <span class="n">stringBuilder5</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-            <span class="n">stringBuilder5</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">stringBuilder4</span><span class="o">);</span>
-            <span class="n">stringBuilder5</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\"auth_provider_x509_cert_url\": \""</span><span class="o">);</span>
-            <span class="n">stringBuilder5</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">Utils</span><span class="o">.</span><span class="na">a</span><span class="o">(</span><span class="s">"aHR0cHM6Ly93d3cuZ29vZ2xlYXBpcy5jb20vb2F1dGgyL3YxL2NlcnRz"</span><span class="o">,</span> <span class="mi">0</span><span class="o">));</span>
-            <span class="n">stringBuilder5</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\","</span><span class="o">);</span>
-            <span class="n">stringBuilder4</span> <span class="o">=</span> <span class="n">stringBuilder5</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
-            <span class="n">stringBuilder5</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-            <span class="n">stringBuilder5</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">stringBuilder4</span><span class="o">);</span>
-            <span class="n">stringBuilder5</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\"client_x509_cert_url\" : \""</span><span class="o">);</span>
-            <span class="n">stringBuilder5</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">Utils</span><span class="o">.</span><span class="na">a</span><span class="o">(</span><span class="s">"aHR0cHM6Ly93d3cuZ29vZ2xlYXBpcy5jb20vcm9ib3QvdjEvbWV0YWRhdGEveDUwOS93ZWF0aGVyLWNvbXBhbmlvbi1zZXJ2aWNlLWFjY28lNDBic2lkZXMtc2YtY3RmLTIwMTkuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20="</span><span class="o">,</span> <span class="mi">0</span><span class="o">));</span>
-            <span class="n">stringBuilder5</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\"}"</span><span class="o">);</span>
-            <span class="n">stringBuilder4</span> <span class="o">=</span> <span class="n">stringBuilder5</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
-            <span class="n">URL</span> <span class="n">a3</span> <span class="o">=</span> <span class="n">gVar</span><span class="o">.</span><span class="na">a</span><span class="o">(</span><span class="n">c</span><span class="o">.</span><span class="na">a</span><span class="o">(</span><span class="n">str2</span><span class="o">,</span> <span class="n">str3</span><span class="o">).</span><span class="na">a</span><span class="o">(),</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">DAYS</span><span class="o">,</span> <span class="n">com</span><span class="o">.</span><span class="na">b</span><span class="o">.</span><span class="na">c</span><span class="o">.</span><span class="na">c</span><span class="o">.</span><span class="na">g</span><span class="o">.</span><span class="na">a</span><span class="o">.</span><span class="na">a</span><span class="o">(</span><span class="n">i</span><span class="o">.</span><span class="na">a</span><span class="o">(</span><span class="k">new</span> <span class="n">ByteArrayInputStream</span><span class="o">(</span><span class="n">stringBuilder4</span><span class="o">.</span><span class="na">getBytes</span><span class="o">()))));</span>
-            <span class="n">str4</span> <span class="o">=</span> <span class="n">a3</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
-            <span class="n">HttpURLConnection</span> <span class="n">httpURLConnection</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">a3</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
-            <span class="n">httpURLConnection</span><span class="o">.</span><span class="na">connect</span><span class="o">();</span>
-            <span class="n">httpURLConnection</span><span class="o">.</span><span class="na">getContentLength</span><span class="o">();</span>
-            <span class="n">BufferedReader</span> <span class="n">bufferedReader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">httpURLConnection</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
-            <span class="n">StringBuffer</span> <span class="n">stringBuffer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
-            <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">str</span> <span class="o">=</span> <span class="n">bufferedReader</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
-                <span class="k">if</span> <span class="o">(</span><span class="n">str</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="k">break</span><span class="o">;</span>
-                <span class="o">}</span>
-                <span class="n">StringBuilder</span> <span class="n">stringBuilder6</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-                <span class="n">stringBuilder6</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
-                <span class="n">stringBuilder6</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"\n"</span><span class="o">);</span>
-                <span class="n">stringBuffer</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">stringBuilder6</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-            <span class="o">}</span>
-            <span class="n">str</span> <span class="o">=</span> <span class="n">stringBuffer</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">str4</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">"Background url"</span><span class="o">,</span> <span class="s">"Background URL in progress"</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="n">str</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="cm">/* access modifiers changed from: protected|final|synthetic */</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="cm">/* synthetic */</span> <span class="kt">void</span> <span class="nf">onPostExecute</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">obj</span><span class="o">;</span>
-        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">"Complete reponse"</span><span class="o">,</span> <span class="n">str</span><span class="o">);</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">JSONObject</span> <span class="n">jSONObject</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JSONObject</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
-            <span class="n">str</span> <span class="o">=</span> <span class="o">((</span><span class="n">JSONObject</span><span class="o">)</span> <span class="n">jSONObject</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"display_location"</span><span class="o">)).</span><span class="na">getString</span><span class="o">(</span><span class="s">"city"</span><span class="o">);</span>
-            <span class="n">jSONObject</span> <span class="o">=</span> <span class="o">(</span><span class="n">JSONObject</span><span class="o">)</span> <span class="n">jSONObject</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"current_weather"</span><span class="o">);</span>
-            <span class="n">String</span> <span class="n">string</span> <span class="o">=</span> <span class="n">jSONObject</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"temperature"</span><span class="o">);</span>
-            <span class="n">String</span> <span class="n">string2</span> <span class="o">=</span> <span class="n">jSONObject</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"precipitation"</span><span class="o">);</span>
-            <span class="n">String</span> <span class="n">string3</span> <span class="o">=</span> <span class="n">jSONObject</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"humidity"</span><span class="o">);</span>
-            <span class="n">String</span> <span class="n">string4</span> <span class="o">=</span> <span class="n">jSONObject</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"wind"</span><span class="o">);</span>
-            <span class="o">((</span><span class="n">TextView</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">a</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">cityName</span><span class="o">)).</span><span class="na">setText</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
-            <span class="o">((</span><span class="n">TextView</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">a</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">precipitationValue</span><span class="o">)).</span><span class="na">setText</span><span class="o">(</span><span class="n">string2</span><span class="o">);</span>
-            <span class="o">((</span><span class="n">TextView</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">a</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">humidityValue</span><span class="o">)).</span><span class="na">setText</span><span class="o">(</span><span class="n">string3</span><span class="o">);</span>
-            <span class="o">((</span><span class="n">TextView</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">a</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">windValue</span><span class="o">)).</span><span class="na">setText</span><span class="o">(</span><span class="n">string4</span><span class="o">);</span>
-            <span class="o">((</span><span class="n">TextView</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">a</span><span class="o">.</span><span class="na">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">temperatureValue</span><span class="o">)).</span><span class="na">setText</span><span class="o">(</span><span class="n">string</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">JSONException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">}</span></code></pre></figure>
-
-<p>We can see that the bulk of the work here is assembling a string into a URL, making a request to it, and parsing the response into the weather data. The URL is assembled from a few parts: <code class="highlighter-rouge">dks()</code> and <code class="highlighter-rouge">ss()</code> both call out to C functions (that we have not decompiled or disassembled yet) via JNI, <code class="highlighter-rouge">String a</code> is a base64 encoded value that decodes to the first half of a private key, and <code class="highlighter-rouge">String a2</code> is another encoded value. After that there is an email address for a <a href="https://cloud.google.com/iam/docs/service-accounts">GCP service account</a>, and 2 ROT13 encoded URLs that decode to Google APIs authentication endpoints. It’s pretty clear that the bulk of this is service account credentials.</p>
-
-<p>The two options at this point are:</p>
-<ol>
-  <li>Reverse each of the functions that go into obfuscating the credentials.</li>
-  <li>Log the assembled credentials after the <code class="highlighter-rouge">stringBuilder4 = stringBuilder5.toString();</code> line where it’s loaded into memory.</li>
-</ol>
-
-<p>I went with the latter. I had a feeling that trying to recompile the obfuscated jadx output I had in front of me might be unnecessarily sadistic<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> so I went up one level in the decompilation pipeline and used Apktool to only disassemble, not decompile, the apk. The big difference here is that after disassembly we don’t get java source code but smali, a human readable format of Dalvik bytecode.</p>
-
-<p>The smali filetree is 1:1 with the java one we examined earlier with each java file having a smali equivalent. Unfortunately <code class="highlighter-rouge">a.smali</code> is about 6x the size of <code class="highlighter-rouge">a.java</code>. I searched the smali code to see what a call to the logging methods looks like and found this snippet:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const-string v1, "Background url"
-
-const-string v2, "Background URL in progress"
-
-invoke-static {v1, v2}, Landroid/util/Log;-&gt;d(Ljava/lang/String;Ljava/lang/String;)I
-</code></pre></div></div>
-
-<p>Focusing on the last line, a successful call to Log includes a reference to a String tag as the first argument and a log body as the second.</p>
-
-<p>Next I looked for <code class="highlighter-rouge">"\"}"</code> which is the last thing appended to the credentials. I found the following smali code:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const-string v5, "\"}"
-
-invoke-virtual {v6, v5}, Ljava/lang/StringBuilder;-&gt;append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-invoke-virtual {v6}, Ljava/lang/StringBuilder;-&gt;toString()Ljava/lang/String;
-
-move-result-object v5
-</code></pre></div></div>
-
-<p>and added the line <code class="highlighter-rouge">invoke-static {v2, v5}, Landroid/util/Log;-&gt;d(Ljava/lang/String;Ljava/lang/String;)I</code> beneath it. The last assignment to v2 was <code class="highlighter-rouge">"weather-companion"</code> so it should make a good tag.</p>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>apktool b weather-companion
-I: Using Apktool 2.3.4
-I: Checking whether sources has changed...
-I: Smaling smali folder into classes.dex...
-I: Checking whether resources has changed...
-I: Building resources...
-I: Copying libs... <span class="o">(</span>/lib<span class="o">)</span>
-I: Building apk file...
-I: Copying unknown files/dir...
-I: Built apk...
-<span class="nv">$ </span>keytool <span class="nt">-genkey</span> <span class="nt">-v</span> <span class="nt">-keystore</span> my-release-key.keystore <span class="nt">-alias</span> alias_name <span class="nt">-keyalg</span> RSA <span class="nt">-keysize</span> 2048 <span class="nt">-validity</span> 10000
-Generating 2,048 bit RSA key pair and self-signed certificate <span class="o">(</span>SHA256withRSA<span class="o">)</span> with a validity of 10,000 days
-	<span class="k">for</span>: <span class="nv">CN</span><span class="o">=</span>Unknown, <span class="nv">OU</span><span class="o">=</span>Unknown, <span class="nv">O</span><span class="o">=</span>Unknown, <span class="nv">L</span><span class="o">=</span>Unknown, <span class="nv">ST</span><span class="o">=</span>Unknown, <span class="nv">C</span><span class="o">=</span>Unknown
-<span class="o">[</span>Storing my-release-key.keystore]
-<span class="nv">$ </span>jarsigner <span class="nt">-verbose</span> <span class="nt">-sigalg</span> SHA1withRSA <span class="nt">-digestalg</span> SHA1 <span class="nt">-keystore</span> my-release-key.keystore ./weather-companion/dist/weather-companion.apk alias_name
-<span class="nv">$ </span>adb uninstall com.example.myapplication
-Success
-<span class="nv">$ </span>adb install ./weather-companion/dist/weather-companion.apk</code></pre></figure>
-
-<p>You’ll notice that I uninstalled the app before installing the new version. If I hadn’t done that then Android would have noticed that the <code class="highlighter-rouge">com.example.myapplication</code> package on the device was signed by a different key than the new one and refuse to install it as a security measure. Alternatively, we could have changed the package name and have both installed at the same time.</p>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb logcat weather-companion:D <span class="se">\*</span>:S
-<span class="nt">---------</span> beginning of system
-<span class="nt">---------</span> beginning of main
-<span class="nt">---------</span> beginning of crash
-04-07 12:43:11.313 14365 14381 D weather-companion: <span class="o">{</span><span class="s2">"type"</span>: <span class="s2">"service_account"</span>,<span class="s2">"project_id"</span>: <span class="s2">"bsides-sf-ctf-2019"</span>,<span class="s2">"private_key_id"</span>: <span class="s2">"6dd7fc48a8b1d49edf7f03f74bc47713bec7d989"</span>,<span class="s2">"private_key"</span>: <span class="s2">"-----BEGIN PRIVATE KEY-----</span><span class="se">\n</span><span class="s2">MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCbNaJX7qZ2Sec4</span><span class="se">\n</span><span class="s2">5W4ir+yYXJ3IwjZ8fwyw0PZSoiTb/iJqTcKk/ltjP61TrJHB5MqKm6Vz/WGw7GSm</span><span class="se">\n</span><span class="s2">nd21xMFqclwuG8N7f+zhIK0XuvRBrS+cMEhw0RbHNUbcO3ZaghKffaLThzPY4x2r</span><span class="se">\n</span><span class="s2">Hh/N8lUYi4TB8WAGaAzCJH3pUi9rTG4+ucxO6pMNz3/ENzyOSmihR9Xb5OkMY/Aq</span><span class="se">\n</span><span class="s2">7NJ7BAwH8oSWRlTllaC8Chl8wDdun6fKWgYYmmcBWXSjropu8f6MR7vMM3F0PEua</span><span class="se">\n</span><span class="s2">YBz1ZpxVvYc1iiMS0WiNtAa1ZBuWhRenAiTfwOCt4rISfbgYSqCTSoK5tOWS52tM</span><span class="se">\n</span><span class="s2">tuzt/OVjAgMBAAECggEAC9T230UuI25W1huHXdWTb7n/vUIw7SSyTvhfDsWVkb+5</span><span class="se">\n</span><span class="s2">1+i9od5SESrVh79sDR/n4NEkt8blH5ulwJ3gPO8W34qARHORX2TNJgxbpad231rY</span><span class="se">\n</span><span class="s2">ekuj+hW2atFA6aEO0K+Bw+7L7twrs6j8pgLR4d1LZ2ebYz2HWHWuI06s2pCNVNyM</span><span class="se">\n</span><span class="s2">SMn593YgfmzNotaoJ3dHAwKG8PuNRHh0qDqqLnu0574dXkTFkEePcedyzza007Iy</span><span class="se">\n</span><span class="s2">CoNTUYJxDO7aJbTQPVyqm7mOewh1SYUdHSofcfALlC9eT2nn6+c9qRgGO3AwbC8V</span><span class="se">\n</span><span class="s2">s9TmMR9+DWfHrUmPN8AKB4YKov/QGUv29svI0d8YwQKBgQDTobsDSI96xm2s+NnE</span><span class="se">\n</span><span class="s2">PabZ+W76sg/1o1dPU4w4+/0u/RUT+vJoumsvwf5n7KUXVAP8npu6LYouNlHz9+zV</span><span class="se">\n</span><span class="s2">ThTINxyTrrA5VamFhoEpeY8OFboNVltxKj9nFvbS2jw2GLZQLapN0XIYE0axRNJs</span><span class="se">\n</span><span class="s2">CSyc2LDYVVj0abjzx0CCFc0S+QKBgQC7v7kpSMJmIwl7FpJm/T9oakdvyZNzt3ZU</span><span class="se">\n</span><span class="s2">+DTRmPXh/WM5c6j9vdzGKq3IlmHV/SSzVUfwQaxF8VzQlAi69fru/DStT8h7CpGd</span><span class="se">\n</span><span class="s2">LEz8S0qq7ubbs7gODK/ZrwSQhv8doegZGu0ntURfaVL7AnyKGJVq2SLheVhMhJeZ</span><span class="se">\n</span><span class="s2">m94mGME2OwKBgFXFSWcGRGhM/WxKGvAG0JWtGwZtnjw+rAcRZFZAApfFqIJFhXNe</span><span class="se">\n</span><span class="s2">gkyDwhjadvpiaY87tP+ar1MVXteS1qCImbGfbGyKMw+5oQ/luHlXs9vQgGwhYMQX</span><span class="se">\n</span><span class="s2">jES6sOQ54IdIMrOCHnCVfzk0rsTvkJyKh1M2G05CIOBF7NiYG5PdRBT5AoGABEwT</span><span class="se">\n</span><span class="s2">FNrReDz9DpApsanCNcWY9PoMIe3lC3TS4Kk7l3yRNNNs3sHlt7NqXtjyTE+K83/U</span><span class="se">\n</span><span class="s2">Ma+PHdq0YSHCQWU35RhorD7TO922D37gFDY080ychBLM96VasQTMefJdDHSUN17i</span><span class="se">\n</span><span class="s2">ZrJDaluixpP7/b0qTlPB9J8uYjH2tlFW+FBAu9kCgYBch8VvyBzlGay5r07joRju</span><span class="se">\n</span><span class="s2">cdnVfrGAUdZRLxA5hrIaKvKFy28CaaKV/lZNI9NmdZntj6aIQ0rzUWidOQsmj2o4</span><span class="se">\n</span><span class="s2">7VcArl5UNurhx4uhg2GClcUIHY5YdExHfEujBu6uMQdZjBpX87uoaggC7jwJanQC</span><span class="se">\n</span><span class="s2">lApTPc3478g/mho9S5eDMw==</span><span class="se">\n</span><span class="s2">-----END PRIVATE KEY-----</span><span class="se">\n</span><span class="s2">"</span>,<span class="s2">"client_email"</span>: <span class="s2">"weather-companion-service-acco@bsides-sf-ctf-2019.iam.gserviceaccount.com"</span>,<span class="s2">"client_id"</span>: <span class="s2">"116037946827001874660"</span>,<span class="s2">"auth_uri"</span>: <span class="s2">"https://accounts.google.com/o/oauth2/auth"</span>,<span class="s2">"token_uri"</span>: <span class="s2">"https://oauth2.googleapis.com/token"</span>,<span class="s2">"auth_provider_x509_cert_url"</span>: <span class="s2">"https://www.googleapis.com/oauth2/v1/certs"</span>,<span class="s2">"client_x509_cert_url"</span> : <span class="s2">"https://www.googleapis.com/robot/v1/metadata/x509/weather-companion-service-acco%40bsides-sf-ctf-2019.iam.gserviceaccount.com"</span><span class="o">}</span></code></pre></figure>
-
-<p>Loading the app and filtering the logs to the <code class="highlighter-rouge">weather-companion</code> tag spits the key right out! Using a similar smali trick to log the generated URL we can see that it’s a signed request to <code class="highlighter-rouge">https://storage.googleapis.com/weather-companion/weather.json</code>, a GCS bucket named <code class="highlighter-rouge">weather-companion</code>.</p>
-
-<p>I authenticated the <a href="https://cloud.google.com/sdk/gcloud/"><code class="highlighter-rouge">gcloud</code></a> tool using my new service account credentials and started to poke around GCS. After a quick detour where we and the organizers realized that the flag wasn’t searchable 😅 all it took was a simple <code class="highlighter-rouge">ls</code> on the bucket!</p>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>gcloud auth activate-service-account weather-companion-service-acco@bsides-sf-ctf-2019.iam.gserviceaccount.com <span class="nt">--key-file</span><span class="o">=</span>weather_priv_key.json
-<span class="nv">$ </span>gsutil <span class="nb">ls </span>gs://weather-companion
-gs://weather-companion/flag.txt
-gs://weather-companion/weather.json</code></pre></figure>
-
-<p>🎉</p>
-
-<div class="footnotes">
-  <ol>
-    <li id="fn:1">
-      <p>While writing this post I decided to give this method a shot. I gave up quickly. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
-    </li>
-  </ol>
-</div>
-
-      </p>
-    </div>
-
-
-
-
-</section>
-
+        
 <section class="post">
   <header class="post-header">
     <p class="post-meta">
       <span class="post-date">
         18 MAR 2019
       </span>
-
+      
       •
-
-        <a class="post-cat" href="http://0.0.0.0:4000/categories/#CTF">CTF</a>
-
-
-
+      
+        <a class="post-cat" href="https://binlog.usmannkhan.com/categories/#CTF">CTF</a>
+        
+      
+      
     </p>
     <h2>
-      <a href="http://0.0.0.0:4000/articles/2019-03/bsides-yayornay" class="post-title" title="BSidesSF CTF Yay Or Nay Writeup">BSidesSF CTF Yay Or Nay Writeup</a>
-
+      <a href="https://binlog.usmannkhan.com/articles/2019-03/bsides-yayornay" class="post-title" title="BSidesSF CTF Yay Or Nay Writeup">BSidesSF CTF Yay Or Nay Writeup</a>
+      
     </h2>
 
-
+    
 
     </header>
 
-
+    
     <div class="post-description">
       <p>
         <p>This is the second in a series of writeups on challenges from the <a href="https://bsidessf.net">BSidesSF CTF</a>. You can see a writeup of the first challenge, Blink, <a href="/articles/2019-03/bsides-blink">here</a></p>
 
-<p><code class="highlighter-rouge">Yay Or Nay</code> was the second mobile challenge in the CTF, this time worth 200 points. Like last time, we start out with a prompt and an apk file. This time the prompt came in a little more handy.</p>
+<p><code class="language-plaintext highlighter-rouge">Yay Or Nay</code> was the second mobile challenge in the CTF, this time worth 200 points. Like last time, we start out with a prompt and an apk file. This time the prompt came in a little more handy.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Keep track of places you would love / hate to see, by dropping markers with a simple click. Try YayorNay v1.2 today!
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Keep track of places you would love / hate to see, by dropping markers with a simple click. Try YayorNay v1.2 today!
 
 :::: Updated README :::: v 1.0 - Added short press, Yay support - Fix stability issues
 
@@ -449,7 +170,7 @@ To-do - Fix stability issues - Bug fixes - Implement feature to view by day
 
 <p>First things first, let’s launch the app.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb install YayorNay.apk
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb <span class="nb">install </span>YayorNay.apk
 Success</code></pre></figure>
 
 <p>The app opens up with some instructions on how to use it and a button to get started.</p>
@@ -512,7 +233,7 @@ android_metadata  locations</code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">sqlite&gt; .schema locations
 CREATE TABLE IF NOT EXISTS <span class="s2">"locations"</span> <span class="o">(</span>
-	<span class="sb">`</span>date<span class="sb">`</span>	TEXT,
+	<span class="sb">`</span><span class="nb">date</span><span class="sb">`</span>	TEXT,
 	<span class="sb">`</span>latitude<span class="sb">`</span>	REAL,
 	<span class="sb">`</span>longitude<span class="sb">`</span>	REAL,
 	<span class="sb">`</span>color<span class="sb">`</span>	REAL
@@ -527,14 +248,14 @@ CREATE TABLE IF NOT EXISTS <span class="s2">"locations"</span> <span class="o">(
 <span class="mi">02</span><span class="o">/</span><span class="mi">07</span><span class="o">/</span><span class="mi">2019</span><span class="o">|</span><span class="mi">37</span><span class="p">.</span><span class="mi">7851367932719</span><span class="o">|-</span><span class="mi">122</span><span class="p">.</span><span class="mi">402353584766</span><span class="o">|</span><span class="mi">120</span><span class="p">.</span><span class="mi">0</span>
 <span class="mi">02</span><span class="o">/</span><span class="mi">07</span><span class="o">/</span><span class="mi">2019</span><span class="o">|</span><span class="mi">37</span><span class="p">.</span><span class="mi">782343920755</span><span class="o">|-</span><span class="mi">122</span><span class="p">.</span><span class="mi">404699847102</span><span class="o">|</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span></code></pre></figure>
 
-<p>Looks like a list of dates, coordinates in and around San Francisco, and the hues for green (120) and red(0)! The next thing I did was go off of the prompt <code class="highlighter-rouge">Bug fixes - Implement feature to view by day</code> and check each day one by one.</p>
+<p>Looks like a list of dates, coordinates in and around San Francisco, and the hues for green (120) and red(0)! The next thing I did was go off of the prompt <code class="language-plaintext highlighter-rouge">Bug fixes - Implement feature to view by day</code> and check each day one by one.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span>cp Location.db Location.db.bak
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span><span class="nb">cp </span>Location.db Location.db.bak
 generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"delete from locations where date!='02/03/2019';"</span> | sqlite3 Location.db
 generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"select distinct date from locations;"</span> | sqlite3 Location.db
 02/03/2019</code></pre></figure>
 
-<p>Back up the database, delete any records that don’t match a given date, reload the app, restore the database, and repeat! Soon enough, on <code class="highlighter-rouge">02/08/2019</code> we see:</p>
+<p>Back up the database, delete any records that don’t match a given date, reload the app, restore the database, and repeat! Soon enough, on <code class="language-plaintext highlighter-rouge">02/08/2019</code> we see:</p>
 
 <figure>
 <img src="/img/isolated_grid.png" alt="YayOrNay grid screenshot" />
@@ -548,13 +269,13 @@ generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span>
   <figcaption>A handy dandy braille glyph sheet</figcaption>
 </figure>
 
-<p>Using the green pins as raised points, we can decode the flag to <code class="highlighter-rouge">Z3lda</code>!</p>
+<p>Using the green pins as raised points, we can decode the flag to <code class="language-plaintext highlighter-rouge">Z3lda</code>!</p>
 
       </p>
     </div>
+    
 
-
-
+    
 
 </section>
 
@@ -564,35 +285,35 @@ generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span>
       <span class="post-date">
         10 MAR 2019
       </span>
-
+      
       •
-
-        <a class="post-cat" href="http://0.0.0.0:4000/categories/#CTF">CTF</a>
-
-
-
+      
+        <a class="post-cat" href="https://binlog.usmannkhan.com/categories/#CTF">CTF</a>
+        
+      
+      
     </p>
     <h2>
-      <a href="http://0.0.0.0:4000/articles/2019-03/bsides-blink" class="post-title" title="BSidesSF CTF Blink Writeup">BSidesSF CTF Blink Writeup</a>
-
+      <a href="https://binlog.usmannkhan.com/articles/2019-03/bsides-blink" class="post-title" title="BSidesSF CTF Blink Writeup">BSidesSF CTF Blink Writeup</a>
+      
     </h2>
 
-
+    
 
     </header>
 
-
+    
     <div class="post-description">
       <p>
-        <p>The <a href="https://bsidessf.net">BSidesSF</a> CTF happened about a week ago! It was the first CTF I’ve tried to compete in and I had a lot of fun on the <code class="highlighter-rouge">▣</code> team. This is the first in a series of writeups on the challenges I participated in.</p>
+        <p>The <a href="https://bsidessf.net">BSidesSF</a> CTF happened about a week ago! It was the first CTF I’ve tried to compete in and I had a lot of fun on the <code class="language-plaintext highlighter-rouge">▣</code> team. This is the first in a series of writeups on the challenges I participated in.</p>
 
 <p>Blink was the first mobile challenge in the event and served as a good introduction. The goal of the mobile challenges is to find a string (the “flag”) using clues hidden in an app. Often the flag is in the app binary itself, but sometimes the challenge may lead you elsewhere afterwards. Blink was a relatively easy “101” challenge, only worth 50 points (the most difficult challenges in the CTF were worth 600 or more).</p>
 
 <h3 id="analysis">Analysis</h3>
 
-<p>The first step in any challenge to open the prompt. It contained the text <code class="highlighter-rouge">Get past the Jedi mind trick to find the flag you are looking for.</code> and a link to an <a href="https://en.wikipedia.org/wiki/Android_application_package">apk file</a> (Android app). I booted up an Android Emulator and used a simple <a href="https://developer.android.com/studio/command-line/adb">adb</a> command to install the app.</p>
+<p>The first step in any challenge to open the prompt. It contained the text <code class="language-plaintext highlighter-rouge">Get past the Jedi mind trick to find the flag you are looking for.</code> and a link to an <a href="https://en.wikipedia.org/wiki/Android_application_package">apk file</a> (Android app). I booted up an Android Emulator and used a simple <a href="https://developer.android.com/studio/command-line/adb">adb</a> command to install the app.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb install blink.apk
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb <span class="nb">install </span>blink.apk
 Success</code></pre></figure>
 
 <p>Opening the app presents us with:</p>
@@ -603,7 +324,7 @@ Success</code></pre></figure>
 </figure>
 <p>If you aren’t familiar with Android, an activity is similar to a window in a traditional desktop app or a page on a website. The hint is essentially saying we need to navigate to a different page.</p>
 
-<p>The first place we should check for activities is the <code class="highlighter-rouge">AndroidManifest.xml</code> file. All of the accessible activities will be listed there. I used <a href="https://ibotpeaches.github.io/Apktool/">Apktool</a> to disassemble the app.</p>
+<p>The first place we should check for activities is the <code class="language-plaintext highlighter-rouge">AndroidManifest.xml</code> file. All of the accessible activities will be listed there. I used <a href="https://ibotpeaches.github.io/Apktool/">Apktool</a> to disassemble the app.</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>apktool d ./blink.apk
 I: Using Apktool 2.3.4 on blink.apk
@@ -632,7 +353,7 @@ I: Copying original files...</code></pre></figure>
     <span class="nt">&lt;/application&gt;</span>
 <span class="nt">&lt;/manifest&gt;</span></code></pre></figure>
 
-<p>Here we can see two activities: <code class="highlighter-rouge">com.example.blink.MainActivity</code> and <code class="highlighter-rouge">com.example.blink.r2d2</code>. We know that <code class="highlighter-rouge">MainActivity</code> is where we saw Obi Wan earlier because it has an intent filter that makes it the default activity. The next step is to launch the <code class="highlighter-rouge">r2d2</code> activity. Let’s whip out adb again and see what we can do.</p>
+<p>Here we can see two activities: <code class="language-plaintext highlighter-rouge">com.example.blink.MainActivity</code> and <code class="language-plaintext highlighter-rouge">com.example.blink.r2d2</code>. We know that <code class="language-plaintext highlighter-rouge">MainActivity</code> is where we saw Obi Wan earlier because it has an intent filter that makes it the default activity. The next step is to launch the <code class="language-plaintext highlighter-rouge">r2d2</code> activity. Let’s whip out adb again and see what we can do.</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb shell am start <span class="nt">-n</span> com.example.blink/.r2d2
 
@@ -655,13 +376,13 @@ Starting: Intent <span class="o">{</span> <span class="nv">cmp</span><span class
 
 <p><img src="/img/blink-ss-2.png" alt="Blink r2d2 screenshot" class="align-left" /></p>
 
-<p>The flag was <code class="highlighter-rouge">CTF{PUCKMAN}</code>. The end! Tons of credit to @itsC0rg1 for putting the puzzle together, and BSidesSF for hosting.</p>
+<p>The flag was <code class="language-plaintext highlighter-rouge">CTF{PUCKMAN}</code>. The end! Tons of credit to @itsC0rg1 for putting the puzzle together, and BSidesSF for hosting.</p>
 
       </p>
     </div>
+    
 
-
-
+    
 
 </section>
 
@@ -689,8 +410,8 @@ Starting: Intent <span class="o">{</span> <span class="nv">cmp</span><span class
     </div>
     </div>
   </div>
-  <script type="text/javascript" src="http://0.0.0.0:4000/js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="http://0.0.0.0:4000/js/main.js"></script>
+  <script type="text/javascript" src="https://binlog.usmannkhan.com/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://binlog.usmannkhan.com/js/main.js"></script>
 
 </body>
 </html>

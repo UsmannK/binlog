@@ -18,28 +18,28 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="BSidesSF CTF Blink Writeup | binlog">
   <meta name="twitter:description" content="The BSidesSF CTF happened about a week ago! It was the first CTF I’ve tried to compete in and I had a lot of fun on the ▣ team. This is the first in a series...">
-  <meta property="twitter:image" content="http://0.0.0.0:4000/img/solid-awoo.png">
+  <meta property="twitter:image" content="https://binlog.usmannkhan.com/img/solid-awoo.png">
 
 
 
   <!-- Open Graph Tags -->
   <meta property="og:type" content="blog">
-  <meta property="og:url" content="http://0.0.0.0:4000/articles/2019-03/bsides-blink">
+  <meta property="og:url" content="https://binlog.usmannkhan.com/articles/2019-03/bsides-blink">
   <meta property="og:title" content="BSidesSF CTF Blink Writeup | binlog">
   <meta property="og:description" content="The BSidesSF CTF happened about a week ago! It was the first CTF I’ve tried to compete in and I had a lot of fun on the ▣ team. This is the first in a series...">
-  <meta property="og:image" content="http://0.0.0.0:4000/img/solid-awoo.png">
+  <meta property="og:image" content="https://binlog.usmannkhan.com/img/solid-awoo.png">
   <title>BSidesSF CTF Blink Writeup | binlog</title>
 
   <!-- CSS files -->
   <link rel="stylesheet" href="/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/main.css">
 
-  <link rel="canonical" href="http://0.0.0.0:4000/articles/2019-03/bsides-blink">
-  <link rel="alternate" type="application/rss+xml" title="binlog" href="http://0.0.0.0:4000/feed.xml" />
+  <link rel="canonical" href="https://binlog.usmannkhan.com/articles/2019-03/bsides-blink">
+  <link rel="alternate" type="application/rss+xml" title="binlog" href="https://binlog.usmannkhan.com/feed.xml" />
 
   <!-- Icons -->
   <!-- 16x16 -->
-  <!-- <link rel="shortcut icon" href="http://0.0.0.0:4000/favicon.ico"> -->
+  <!-- <link rel="shortcut icon" href="https://binlog.usmannkhan.com/favicon.ico"> -->
   <!-- 32x32 -->
   <link rel="shortcut icon" href="/favicon.png">
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -50,33 +50,33 @@
   <div class="row">
     <div class="col s12">
       <div class="table cover sidebar">
-
+        
 
 <div class="cover-card table-cell table-middle">
-
-  <a href="http://0.0.0.0:4000/">
+  
+  <a href="https://binlog.usmannkhan.com/">
     <img src="/img/awoo.png" alt="" class="avatar">
   </a>
-
-  <a href="http://0.0.0.0:4000/" class="author_name">Usmann Khan</a>
+  
+  <a href="https://binlog.usmannkhan.com/" class="author_name">Usmann Khan</a>
   <nav class="nav">
     <ul class="nav-list">
       <li class="nav-item">
-        <a href="http://0.0.0.0:4000/">home</a>
+        <a href="https://binlog.usmannkhan.com/">home</a>
       </li>
-
+       
       <li class="nav-item">
-        <a href="http://0.0.0.0:4000/about/">About</a>
+        <a href="https://binlog.usmannkhan.com/about/">About</a>
       </li>
-
+        
       <li class="nav-item">
-        <a href="http://0.0.0.0:4000/archive/">Archive</a>
+        <a href="https://binlog.usmannkhan.com/archive/">Archive</a>
       </li>
-
+          
       <li class="nav-item">
-        <a href="http://0.0.0.0:4000/categories/">Categories</a>
+        <a href="https://binlog.usmannkhan.com/categories/">Categories</a>
       </li>
-
+               
     </ul>
   </nav>
   <script type="text/javascript">
@@ -93,31 +93,31 @@
 </script>
 <div class="social-links">
   <ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
   </ul>
 </div>
 
@@ -126,7 +126,7 @@
       </div>
       <div class="post-listing">
       <div class="post-container">
-
+        
 
 
 <div id="post">
@@ -138,10 +138,10 @@
       </span>
       •
       <span class="read-time" title="Estimated read time">
-
-
+  
+  
     3 mins read
-
+  
 </span>
 
     </span>
@@ -149,15 +149,15 @@
   </header>
 
   <article class="post-content">
-    <p>The <a href="https://bsidessf.net">BSidesSF</a> CTF happened about a week ago! It was the first CTF I’ve tried to compete in and I had a lot of fun on the <code class="highlighter-rouge">▣</code> team. This is the first in a series of writeups on the challenges I participated in.</p>
+    <p>The <a href="https://bsidessf.net">BSidesSF</a> CTF happened about a week ago! It was the first CTF I’ve tried to compete in and I had a lot of fun on the <code class="language-plaintext highlighter-rouge">▣</code> team. This is the first in a series of writeups on the challenges I participated in.</p>
 
 <p>Blink was the first mobile challenge in the event and served as a good introduction. The goal of the mobile challenges is to find a string (the “flag”) using clues hidden in an app. Often the flag is in the app binary itself, but sometimes the challenge may lead you elsewhere afterwards. Blink was a relatively easy “101” challenge, only worth 50 points (the most difficult challenges in the CTF were worth 600 or more).</p>
 
 <h3 id="analysis">Analysis</h3>
 
-<p>The first step in any challenge to open the prompt. It contained the text <code class="highlighter-rouge">Get past the Jedi mind trick to find the flag you are looking for.</code> and a link to an <a href="https://en.wikipedia.org/wiki/Android_application_package">apk file</a> (Android app). I booted up an Android Emulator and used a simple <a href="https://developer.android.com/studio/command-line/adb">adb</a> command to install the app.</p>
+<p>The first step in any challenge to open the prompt. It contained the text <code class="language-plaintext highlighter-rouge">Get past the Jedi mind trick to find the flag you are looking for.</code> and a link to an <a href="https://en.wikipedia.org/wiki/Android_application_package">apk file</a> (Android app). I booted up an Android Emulator and used a simple <a href="https://developer.android.com/studio/command-line/adb">adb</a> command to install the app.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb install blink.apk
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb <span class="nb">install </span>blink.apk
 Success</code></pre></figure>
 
 <p>Opening the app presents us with:</p>
@@ -168,7 +168,7 @@ Success</code></pre></figure>
 </figure>
 <p>If you aren’t familiar with Android, an activity is similar to a window in a traditional desktop app or a page on a website. The hint is essentially saying we need to navigate to a different page.</p>
 
-<p>The first place we should check for activities is the <code class="highlighter-rouge">AndroidManifest.xml</code> file. All of the accessible activities will be listed there. I used <a href="https://ibotpeaches.github.io/Apktool/">Apktool</a> to disassemble the app.</p>
+<p>The first place we should check for activities is the <code class="language-plaintext highlighter-rouge">AndroidManifest.xml</code> file. All of the accessible activities will be listed there. I used <a href="https://ibotpeaches.github.io/Apktool/">Apktool</a> to disassemble the app.</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>apktool d ./blink.apk
 I: Using Apktool 2.3.4 on blink.apk
@@ -197,7 +197,7 @@ I: Copying original files...</code></pre></figure>
     <span class="nt">&lt;/application&gt;</span>
 <span class="nt">&lt;/manifest&gt;</span></code></pre></figure>
 
-<p>Here we can see two activities: <code class="highlighter-rouge">com.example.blink.MainActivity</code> and <code class="highlighter-rouge">com.example.blink.r2d2</code>. We know that <code class="highlighter-rouge">MainActivity</code> is where we saw Obi Wan earlier because it has an intent filter that makes it the default activity. The next step is to launch the <code class="highlighter-rouge">r2d2</code> activity. Let’s whip out adb again and see what we can do.</p>
+<p>Here we can see two activities: <code class="language-plaintext highlighter-rouge">com.example.blink.MainActivity</code> and <code class="language-plaintext highlighter-rouge">com.example.blink.r2d2</code>. We know that <code class="language-plaintext highlighter-rouge">MainActivity</code> is where we saw Obi Wan earlier because it has an intent filter that makes it the default activity. The next step is to launch the <code class="language-plaintext highlighter-rouge">r2d2</code> activity. Let’s whip out adb again and see what we can do.</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb shell am start <span class="nt">-n</span> com.example.blink/.r2d2
 
@@ -220,7 +220,7 @@ Starting: Intent <span class="o">{</span> <span class="nv">cmp</span><span class
 
 <p><img src="/img/blink-ss-2.png" alt="Blink r2d2 screenshot" class="align-left" /></p>
 
-<p>The flag was <code class="highlighter-rouge">CTF{PUCKMAN}</code>. The end! Tons of credit to @itsC0rg1 for putting the puzzle together, and BSidesSF for hosting.</p>
+<p>The flag was <code class="language-plaintext highlighter-rouge">CTF{PUCKMAN}</code>. The end! Tons of credit to @itsC0rg1 for putting the puzzle together, and BSidesSF for hosting.</p>
 
   </article>
 </div>
@@ -250,8 +250,8 @@ Starting: Intent <span class="o">{</span> <span class="nv">cmp</span><span class
     </div>
     </div>
   </div>
-  <script type="text/javascript" src="http://0.0.0.0:4000/js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="http://0.0.0.0:4000/js/main.js"></script>
+  <script type="text/javascript" src="https://binlog.usmannkhan.com/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://binlog.usmannkhan.com/js/main.js"></script>
 
 </body>
 </html>
