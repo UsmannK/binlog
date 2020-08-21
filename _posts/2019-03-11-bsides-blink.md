@@ -8,6 +8,7 @@ date:   2019-03-11 00:00:00
 The [BSidesSF](https://bsidessf.net) CTF happened about a week ago! It was the first CTF I've tried to compete in and I had a lot of fun on the `▣` team. This is the first in a series of writeups on the challenges I participated in.
 
 Blink was the first mobile challenge in the event and served as a good introduction. The goal of the mobile challenges is to find a string (the "flag") using clues hidden in an app. Often the flag is in the app binary itself, but sometimes the challenge may lead you elsewhere afterwards. Blink was a relatively easy "101" challenge, only worth 50 points (the most difficult challenges in the CTF were worth 600 or more).
+ <!--more-->
 
 ### Analysis
 

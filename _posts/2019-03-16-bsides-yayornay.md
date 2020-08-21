@@ -21,6 +21,7 @@ v 1.2 - Populate from DB - Save to DB
 
 To-do - Fix stability issues - Bug fixes - Implement feature to view by day
 ```
+ <!--more-->
 
 First things first, let's launch the app.
 

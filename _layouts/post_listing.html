@@ -39,6 +39,12 @@ layout: default
       <p>
         {{ post.excerpt }}
       </p>
+      <!-- Whether or not to display the "read more" button -->
+      {% capture content_words %}{{ post.content | number_of_words }}{% endcapture %} 
+      {% capture excerpt_words %}{{ post.excerpt | number_of_words }}{% endcapture %} 
+      {% if excerpt_words != content_words %}
+      <a href="{{ post.url }}" class="btn">Read More</a>
+      {% endif %}
     </div>
     {% endif %}
 
