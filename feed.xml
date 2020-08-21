@@ -6,8 +6,8 @@
     <link>https://binlog.usmannkhan.com/</link>
     <atom:link href="https://binlog.usmannkhan.com/feed.xml" rel="self" type="application/rss+xml"/>
     <pubDate>2020-08-21</pubDate>
-    <lastBuildDate>Fri, 21 Aug 2020 12:46:27 -0700</lastBuildDate>
-    <generator>Jekyll v3.8.7</generator>
+    <lastBuildDate>Fri, 21 Aug 2020 14:26:49 -0700</lastBuildDate>
+    <generator>Jekyll v3.9.0</generator>
     
       <item>
         <title>BSidesSF CTF Weather Companion Writeup</title>
@@ -185,7 +185,7 @@
 
 &lt;p&gt;2. Log the assembled credentials after the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stringBuilder4 = stringBuilder5.toString();&lt;/code&gt; line where it’s loaded into memory.&lt;/p&gt;
 
-&lt;p&gt;I went with the latter. I had a feeling that trying to recompile the obfuscated jadx output I had in front of me might be unnecessarily sadistic&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; so I went up one level in the decompilation pipeline and used Apktool to only disassemble, not decompile, the apk. The big difference here is that after disassembly we don’t get java source code but smali, a human readable format of Dalvik bytecode.&lt;/p&gt;
+&lt;p&gt;I went with the latter. I had a feeling that trying to recompile the obfuscated jadx output I had in front of me might be unnecessarily sadistic&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; so I went up one level in the decompilation pipeline and used Apktool to only disassemble, not decompile, the apk. The big difference here is that after disassembly we don’t get java source code but smali, a human readable format of Dalvik bytecode.&lt;/p&gt;
 
 &lt;p&gt;The smali filetree is 1:1 with the java one we examined earlier with each java file having a smali equivalent. Unfortunately &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.smali&lt;/code&gt; is about 6x the size of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.java&lt;/code&gt;. I searched the smali code to see what a call to the logging methods looks like and found this snippet:&lt;/p&gt;
 
@@ -249,10 +249,10 @@ gs://weather-companion/weather.json&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;🎉&lt;/p&gt;
 
-&lt;div class=&quot;footnotes&quot;&gt;
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
   &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot;&gt;
-      &lt;p&gt;While writing this post I decided to give this method a shot. I gave up quickly. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;While writing this post I decided to give this method a shot. I gave up quickly. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;
