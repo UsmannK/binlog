@@ -50,33 +50,33 @@
   <div class="row">
     <div class="col s12">
       <div class="table cover sidebar">
-
+        
 
 <div class="cover-card table-cell table-middle">
-
+  
   <a href="https://binlog.usmannkhan.com/">
     <img src="/img/awoo.png" alt="" class="avatar">
   </a>
-
+  
   <a href="https://binlog.usmannkhan.com/" class="author_name">Usmann Khan</a>
   <nav class="nav">
     <ul class="nav-list">
       <li class="nav-item">
         <a href="https://binlog.usmannkhan.com/">home</a>
       </li>
-
+       
       <li class="nav-item">
         <a href="https://binlog.usmannkhan.com/about/">About</a>
       </li>
-
+        
       <li class="nav-item">
         <a href="https://binlog.usmannkhan.com/archive/">Archive</a>
       </li>
-
+          
       <li class="nav-item">
         <a href="https://binlog.usmannkhan.com/categories/">Categories</a>
       </li>
-
+               
     </ul>
   </nav>
   <script type="text/javascript">
@@ -93,31 +93,31 @@
 </script>
 <div class="social-links">
   <ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
   </ul>
 </div>
 
@@ -126,7 +126,7 @@
       </div>
       <div class="post-listing">
       <div class="post-container">
-
+        
 
 
 <div id="post">
@@ -138,10 +138,10 @@
       </span>
       •
       <span class="read-time" title="Estimated read time">
-
-
+  
+  
     4 mins read
-
+  
 </span>
 
     </span>
@@ -151,9 +151,9 @@
   <article class="post-content">
     <p>This is the second in a series of writeups on challenges from the <a href="https://bsidessf.net">BSidesSF CTF</a>. You can see a writeup of the first challenge, Blink, <a href="/articles/2019-03/bsides-blink">here</a></p>
 
-<p><code class="highlighter-rouge">Yay Or Nay</code> was the second mobile challenge in the CTF, this time worth 200 points. Like last time, we start out with a prompt and an apk file. This time the prompt came in a little more handy.</p>
+<p><code class="language-plaintext highlighter-rouge">Yay Or Nay</code> was the second mobile challenge in the CTF, this time worth 200 points. Like last time, we start out with a prompt and an apk file. This time the prompt came in a little more handy.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Keep track of places you would love / hate to see, by dropping markers with a simple click. Try YayorNay v1.2 today!
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Keep track of places you would love / hate to see, by dropping markers with a simple click. Try YayorNay v1.2 today!
 
 :::: Updated README :::: v 1.0 - Added short press, Yay support - Fix stability issues
 
@@ -163,10 +163,11 @@ v 1.2 - Populate from DB - Save to DB
 
 To-do - Fix stability issues - Bug fixes - Implement feature to view by day
 </code></pre></div></div>
+<p><!--more--></p>
 
 <p>First things first, let’s launch the app.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb install YayorNay.apk
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>adb <span class="nb">install </span>YayorNay.apk
 Success</code></pre></figure>
 
 <p>The app opens up with some instructions on how to use it and a button to get started.</p>
@@ -229,7 +230,7 @@ android_metadata  locations</code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">sqlite&gt; .schema locations
 CREATE TABLE IF NOT EXISTS <span class="s2">"locations"</span> <span class="o">(</span>
-	<span class="sb">`</span>date<span class="sb">`</span>	TEXT,
+	<span class="sb">`</span><span class="nb">date</span><span class="sb">`</span>	TEXT,
 	<span class="sb">`</span>latitude<span class="sb">`</span>	REAL,
 	<span class="sb">`</span>longitude<span class="sb">`</span>	REAL,
 	<span class="sb">`</span>color<span class="sb">`</span>	REAL
@@ -244,14 +245,14 @@ CREATE TABLE IF NOT EXISTS <span class="s2">"locations"</span> <span class="o">(
 <span class="mi">02</span><span class="o">/</span><span class="mi">07</span><span class="o">/</span><span class="mi">2019</span><span class="o">|</span><span class="mi">37</span><span class="p">.</span><span class="mi">7851367932719</span><span class="o">|-</span><span class="mi">122</span><span class="p">.</span><span class="mi">402353584766</span><span class="o">|</span><span class="mi">120</span><span class="p">.</span><span class="mi">0</span>
 <span class="mi">02</span><span class="o">/</span><span class="mi">07</span><span class="o">/</span><span class="mi">2019</span><span class="o">|</span><span class="mi">37</span><span class="p">.</span><span class="mi">782343920755</span><span class="o">|-</span><span class="mi">122</span><span class="p">.</span><span class="mi">404699847102</span><span class="o">|</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span></code></pre></figure>
 
-<p>Looks like a list of dates, coordinates in and around San Francisco, and the hues for green (120) and red(0)! The next thing I did was go off of the prompt <code class="highlighter-rouge">Bug fixes - Implement feature to view by day</code> and check each day one by one.</p>
+<p>Looks like a list of dates, coordinates in and around San Francisco, and the hues for green (120) and red(0)! The next thing I did was go off of the prompt <code class="language-plaintext highlighter-rouge">Bug fixes - Implement feature to view by day</code> and check each day one by one.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span>cp Location.db Location.db.bak
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span><span class="nb">cp </span>Location.db Location.db.bak
 generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"delete from locations where date!='02/03/2019';"</span> | sqlite3 Location.db
 generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"select distinct date from locations;"</span> | sqlite3 Location.db
 02/03/2019</code></pre></figure>
 
-<p>Back up the database, delete any records that don’t match a given date, reload the app, restore the database, and repeat! Soon enough, on <code class="highlighter-rouge">02/08/2019</code> we see:</p>
+<p>Back up the database, delete any records that don’t match a given date, reload the app, restore the database, and repeat! Soon enough, on <code class="language-plaintext highlighter-rouge">02/08/2019</code> we see:</p>
 
 <figure>
 <img src="/img/isolated_grid.png" alt="YayOrNay grid screenshot" />
@@ -265,7 +266,7 @@ generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span>
   <figcaption>A handy dandy braille glyph sheet</figcaption>
 </figure>
 
-<p>Using the green pins as raised points, we can decode the flag to <code class="highlighter-rouge">Z3lda</code>!</p>
+<p>Using the green pins as raised points, we can decode the flag to <code class="language-plaintext highlighter-rouge">Z3lda</code>!</p>
 
   </article>
 </div>
@@ -273,21 +274,6 @@ generic_x86:/data/data/com.example.yayornay/databases <span class="nv">$ </span>
 
 
         <footer>
-  <!-- Matomo -->
-  <script type="text/javascript">
-    var _paq = window._paq || [];
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    _paq.push(['enableHeartBeatTimer', 10]);
-    (function() {
-      var u="//anltcs.usmannkhan.com/";
-      _paq.push(['setTrackerUrl', u+'1pt.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'embed.js.1'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <!-- End Matomo Code -->
   &copy; Usmann Khan
 </footer>
 
