@@ -31,6 +31,8 @@ plugins:
   - jekyll-figure
 jekyll-figure:
   paragraphs: false
+
+keep_files: [CNAME]
 #
 ###################################
 # Site Owner configuration
