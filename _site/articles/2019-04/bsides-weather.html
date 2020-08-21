@@ -323,7 +323,7 @@
 
 <p>2. Log the assembled credentials after the <code class="language-plaintext highlighter-rouge">stringBuilder4 = stringBuilder5.toString();</code> line where it’s loaded into memory.</p>
 
-<p>I went with the latter. I had a feeling that trying to recompile the obfuscated jadx output I had in front of me might be unnecessarily sadistic<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> so I went up one level in the decompilation pipeline and used Apktool to only disassemble, not decompile, the apk. The big difference here is that after disassembly we don’t get java source code but smali, a human readable format of Dalvik bytecode.</p>
+<p>I went with the latter. I had a feeling that trying to recompile the obfuscated jadx output I had in front of me might be unnecessarily sadistic<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup> so I went up one level in the decompilation pipeline and used Apktool to only disassemble, not decompile, the apk. The big difference here is that after disassembly we don’t get java source code but smali, a human readable format of Dalvik bytecode.</p>
 
 <p>The smali filetree is 1:1 with the java one we examined earlier with each java file having a smali equivalent. Unfortunately <code class="language-plaintext highlighter-rouge">a.smali</code> is about 6x the size of <code class="language-plaintext highlighter-rouge">a.java</code>. I searched the smali code to see what a call to the logging methods looks like and found this snippet:</p>
 
@@ -387,10 +387,10 @@ gs://weather-companion/weather.json</code></pre></figure>
 
 <p>🎉</p>
 
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:1">
-      <p>While writing this post I decided to give this method a shot. I gave up quickly. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:1" role="doc-endnote">
+      <p>While writing this post I decided to give this method a shot. I gave up quickly. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
