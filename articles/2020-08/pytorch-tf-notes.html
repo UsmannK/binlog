@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="A machine learning cheat sheet, because there are too many ways to do any one thing.">
+  <meta name="keywords" content="blog and jekyll">
+  <meta name="author" content="Tensorflow + PyTorch in 10 minutes | binlog">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f5f5">
+
+  <!-- Twitter Tags -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Tensorflow + PyTorch in 10 minutes | binlog">
+  <meta name="twitter:description" content="A machine learning cheat sheet, because there are too many ways to do any one thing.">
+  <meta property="twitter:image" content="https://binlog.usmannkhan.com/img/solid-awoo.png">
+
+
+
+  <!-- Open Graph Tags -->
+  <meta property="og:type" content="blog">
+  <meta property="og:url" content="https://binlog.usmannkhan.com/articles/2020-08/pytorch-tf-notes">
+  <meta property="og:title" content="Tensorflow + PyTorch in 10 minutes | binlog">
+  <meta property="og:description" content="A machine learning cheat sheet, because there are too many ways to do any one thing.">
+  <meta property="og:image" content="https://binlog.usmannkhan.com/img/solid-awoo.png">
+  <title>Tensorflow + PyTorch in 10 minutes | binlog</title>
+
+  <!-- CSS files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="https://binlog.usmannkhan.com/articles/2020-08/pytorch-tf-notes">
+  <link rel="alternate" type="application/rss+xml" title="binlog" href="https://binlog.usmannkhan.com/feed.xml" />
+
+  <!-- Icons -->
+  <!-- 16x16 -->
+  <!-- <link rel="shortcut icon" href="https://binlog.usmannkhan.com/favicon.ico"> -->
+  <!-- 32x32 -->
+  <link rel="shortcut icon" href="/favicon.png">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+</head>
+
+
+<body>
+  <div class="row">
+    <div class="col s12">
+      <div class="table cover sidebar">
+        
+
+<div class="cover-card table-cell table-middle">
+  
+  <a href="https://binlog.usmannkhan.com/">
+    <img src="/img/awoo.png" alt="" class="avatar">
+  </a>
+  
+  <a href="https://binlog.usmannkhan.com/" class="author_name">Usmann Khan</a>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="https://binlog.usmannkhan.com/">home</a>
+      </li>
+       
+      <li class="nav-item">
+        <a href="https://binlog.usmannkhan.com/about/">About</a>
+      </li>
+        
+      <li class="nav-item">
+        <a href="https://binlog.usmannkhan.com/archive/">Archive</a>
+      </li>
+          
+      <li class="nav-item">
+        <a href="https://binlog.usmannkhan.com/categories/">Categories</a>
+      </li>
+               
+    </ul>
+  </nav>
+  <script type="text/javascript">
+  // based on http://stackoverflow.com/a/10300743/280842
+  function gen_mail_to_link(hs, subject) {
+    var lhs,rhs;
+    var p = hs.split('@');
+    lhs = p[0];
+    rhs = p[1];
+    document.write("<a class=\"social-link-item\" target=\"_blank\" href=\"mailto");
+    document.write(":" + lhs + "@");
+    document.write(rhs + "?subject=" + subject + "\"><i class=\"fa fa-fw fa-envelope\"></i><\/a>");
+  }
+</script>
+<div class="social-links">
+  <ul>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </ul>
+</div>
+
+</div>
+
+      </div>
+      <div class="post-listing">
+      <div class="post-container">
+        
+
+
+<div id="post">
+  <header class="post-header">
+    <h1 title="Tensorflow + PyTorch in 10 minutes">Tensorflow + PyTorch in 10 minutes</h1>
+    <span class="post-meta">
+      <span class="post-date">
+        20 AUG 2020
+      </span>
+      •
+      <span class="read-time" title="Estimated read time">
+  
+  
+    6 mins read
+  
+</span>
+
+    </span>
+
+  </header>
+
+  <article class="post-content">
+    <p>A machine learning cheat sheet, because there are too many ways to do any one thing.</p>
+
+<p><!--more--></p>
+
+<p>This page is intended to be a living document recording an opinionated and sufficient subset of the scaffolding required to build a production level project on Tensorflow or PyTorch. Currently the section on Tensorflow is complete, and a PyTorch overview is underway.</p>
+
+<blockquote>
+  <p>Snippets below are aimed at advanced uses of TF+Pytorch. Frameworks like Keras/FastAI/Lightning/Catalyst are intentionally excluded.</p>
+</blockquote>
+
+<ul id="markdown-toc">
+  <li><a href="#tensorflow-2x" id="markdown-toc-tensorflow-2x">Tensorflow 2.x</a>    <ul>
+      <li><a href="#preparing-data" id="markdown-toc-preparing-data">Preparing Data</a></li>
+      <li><a href="#creating-models" id="markdown-toc-creating-models">Creating Models</a></li>
+      <li><a href="#training" id="markdown-toc-training">Training</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="tensorflow-2x">Tensorflow 2.x</h2>
+
+<h3 id="preparing-data">Preparing Data</h3>
+<p>Data for TF/Keras models is best handled as <a href="https://www.tensorflow.org/api_docs/python/tf/data/Dataset"><code class="language-plaintext highlighter-rouge">tf.data.Dataset</code></a> objects.</p>
+
+<h4 class="no_toc" id="creating-datasets">Creating Datasets</h4>
+<p>Datasets can be created by using the <code class="language-plaintext highlighter-rouge">from_tensors</code> or <code class="language-plaintext highlighter-rouge">from_tensor_slices</code> methods which, despite their names, take any tensor-ish object as input. This includes numpy arrays, python lists, and TF tensors.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">constant</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">Dataset</span><span class="p">.</span><span class="n">from_tensors</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>       <span class="c1"># [[1, 2], [3, 4]] 1x elements of shape (2,2)
+</span><span class="n">dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">Dataset</span><span class="p">.</span><span class="n">from_tensor_slices</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="c1"># [1, 2], [3, 4]   2x elements of shape (2)
+</span></code></pre></div></div>
+
+<h4 class="no_toc" id="processing-datasets">Processing Datasets</h4>
+<p>Often we’ll want to take a list of filenames and process, say, the images in those files. To do this, map the dataset over a parsing function. Specify <code class="language-plaintext highlighter-rouge">num_parallel_calls=tf.data.experimental.AUTOTUNE</code> when mapping to allow TF to use builtin heuristics to parallelize the mapping.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">parse_function</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+    <span class="n">parsed_example</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">decode_jpeg</span><span class="p">(</span><span class="n">parsed_example</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">image</span>
+
+<span class="n">fnames</span> <span class="o">=</span> <span class="n">glob</span><span class="p">.</span><span class="n">glob</span><span class="p">(</span><span class="s">'images/*.jpg'</span><span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">Dataset</span><span class="p">.</span><span class="n">from_tensor_slices</span><span class="p">(</span><span class="n">fnames</span><span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">Dataset</span><span class="p">.</span><span class="nb">map</span><span class="p">(</span><span class="n">parse_function</span><span class="p">,</span> <span class="n">num_parallel_calls</span><span class="o">=</span><span class="n">tf</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">experimental</span><span class="p">.</span><span class="n">AUTOTUNE</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Use batching, shuffling, and repeat the dataset when training for multiple epochs. Call repeat before batch to ensure consistent batch sizes in the case where the dataset size is not a multiple of the batch size.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">.</span><span class="n">repeat</span><span class="p">().</span><span class="n">shuffle</span><span class="p">(</span><span class="n">buffer_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">.</span><span class="n">batch</span><span class="p">(</span><span class="n">batch_size</span><span class="p">).</span><span class="n">prefetch</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">experimental</span><span class="p">.</span><span class="n">AUTOTUNE</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>It’s often helpful to combine labels and data with zip</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">image_data</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]]</span>
+<span class="n">label_data</span> <span class="o">=</span> <span class="p">[</span><span class="s">'apple'</span><span class="p">,</span> <span class="s">'banana'</span><span class="p">]</span>
+
+<span class="n">image_dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">Dataset</span><span class="p">.</span><span class="n">from_tensor_slices</span><span class="p">(</span><span class="n">image_data</span><span class="p">)</span>      <span class="c1"># [1,2], [3,4]
+</span><span class="n">label_dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">Dataset</span><span class="p">.</span><span class="n">from_tensor_slices</span><span class="p">(</span><span class="n">label_data</span><span class="p">)</span>      <span class="c1"># 'apple', 'banana'
+</span><span class="n">final_dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">Dataset</span><span class="p">.</span><span class="nb">zip</span><span class="p">((</span><span class="n">image_dataset</span><span class="p">,</span> <span class="n">label_dataset</span><span class="p">))</span> <span class="c1"># ([1,2], 'apple'), ([3,4], 'banana')
+</span></code></pre></div></div>
+
+<p>See the <a href="https://www.tensorflow.org/guide/data_performance">TF Data Performance Guide</a> for info on optimizing dataset operations. In general: interleave when you have multiple datasets, batch before map, cache when possible.</p>
+
+<h3 id="creating-models">Creating Models</h3>
+
+<p>I recommend using <code class="language-plaintext highlighter-rouge">tf.keras.Model</code> models even when operating in Tensorflow land. It’s fully compatible and has nice semantics. A very simple model that just wraps resnet looks like this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">keras</span><span class="p">.</span><span class="n">model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">name</span><span class="o">==</span><span class="s">'my_model'</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MyModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">backbone</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">keras</span><span class="p">.</span><span class="n">applications</span><span class="p">.</span><span class="n">ResNet101</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">321</span><span class="p">,</span><span class="mi">321</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">weights</span><span class="o">=</span><span class="s">'imagenet'</span><span class="p">,</span> <span class="n">include_top</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">keras</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">num_classes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">kernel_regularizer</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'desc_fc'</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">backbone</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">classifier</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">logits</span>
+</code></pre></div></div>
+
+<p>You can, of course, nest any module-like objects</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">WrapperModel</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">keras</span><span class="p">.</span><span class="n">model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backbone</span><span class="p">,</span> <span class="n">name</span><span class="o">==</span><span class="s">'my_model'</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MyModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">backbone</span> <span class="o">=</span> <span class="n">backbone</span>
+    
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">backbone</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+<span class="n">backbone_model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">WrapperModel</span><span class="p">(</span><span class="n">backbone_model</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="training">Training</h3>
+
+<p>The main steps when training models are:</p>
+<ul>
+  <li>Get the model output</li>
+  <li>Compute a loss</li>
+  <li>Compute and backpropagate the gradients with respect to the loss and model</li>
+  <li>Repeat</li>
+</ul>
+
+<p>With a model and dataset computing outputs is simple</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">model</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">(</span><span class="n">num_classes</span><span class="p">)</span>
+<span class="n">batch</span> <span class="o">=</span> <span class="n">create_dataset</span><span class="p">().</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">probabilities</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>To record execution for automatic differentiation and backprop, use a <a href="https://www.tensorflow.org/api_docs/python/tf/GradientTape"><code class="language-plaintext highlighter-rouge">tf.GradientTape</code></a></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>optimizer = tf.keras.optimizers.Adam()
+
+with tf.GradientTape() as tape:
+    probabilities = model(batch)
+    loss = f.keras.losses.SparseCategoricalCrossentropy(labels, probabilities)
+
+gradients = tape.gradient(loss, model.trainable_weights)
+clipped, _ = tf.clip_by_global_norm(gradients, clip_norm=clip_val)
+optimizer.apply_gradients(zip(clipped, weights))
+</code></pre></div></div>
+
+<p>The whole train loop might look like this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="n">step</span> <span class="o">&lt;</span> <span class="n">max_steps_count</span><span class="p">:</span>
+    <span class="n">labels</span><span class="p">,</span> <span class="n">batch</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">train_dataset_iterator</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">tf</span><span class="p">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+        <span class="n">probabilities</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">compute_loss</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span><span class="n">probabilities</span><span class="p">)</span>
+    
+    <span class="n">gradients</span> <span class="o">=</span> <span class="n">tape</span><span class="p">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">model</span><span class="p">.</span><span class="n">trainable_weights</span><span class="p">)</span>
+    <span class="n">clipped</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">clip_by_global_norm</span><span class="p">(</span><span class="n">gradients</span><span class="p">,</span> <span class="n">clip_norm</span><span class="o">=</span><span class="n">clip_val</span><span class="p">)</span>
+    <span class="n">optimizer</span><span class="p">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">clipped</span><span class="p">,</span> <span class="n">weights</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>From there, recording the progress to Tensorboard is easy:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">summary_writer</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">summary</span><span class="p">.</span><span class="n">create_file_writer</span><span class="p">(</span><span class="s">'train_logs'</span><span class="p">,</span> <span class="n">flush_millis</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">summary_writer</span><span class="p">.</span><span class="n">as_default</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">tf</span><span class="p">.</span><span class="n">summary</span><span class="p">.</span><span class="n">record_if</span><span class="p">(</span>
+        <span class="n">tf</span><span class="p">.</span><span class="n">math</span><span class="p">.</span><span class="n">equal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">.</span><span class="n">iterations</span> <span class="o">%</span> <span class="n">report_interval</span><span class="p">)):</span>
+        <span class="k">while</span> <span class="n">step</span> <span class="o">&lt;</span> <span class="n">max_steps_count</span><span class="p">:</span>
+            <span class="p">...</span> <span class="p">(</span><span class="n">see</span> <span class="n">above</span><span class="p">)</span>
+            <span class="n">tf</span><span class="p">.</span><span class="n">summary</span><span class="p">.</span><span class="n">scalar</span><span class="p">(</span>
+                <span class="s">'loss/crossentropy'</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">optimizer</span><span class="p">.</span><span class="n">iterations</span><span class="p">.</span><span class="n">numpy</span><span class="p">())</span>
+</code></pre></div></div>
+
+  </article>
+</div>
+
+
+
+        <footer>
+  &copy; Usmann Khan
+</footer>
+
+      </div>
+    </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="https://binlog.usmannkhan.com/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://binlog.usmannkhan.com/js/main.js"></script>
+
+</body>
+</html>
